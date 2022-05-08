@@ -1,0 +1,3 @@
+[submodule "sub-modules/psychoportal"]
+	path = sub-modules/psychoportal
+	url = https://gitlab.com/scrunguscrungus/psychoportal
