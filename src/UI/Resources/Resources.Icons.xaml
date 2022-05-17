@@ -1,0 +1,62 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:PsychonautsTools">
+
+    <!-- Generic Icons -->
+
+    <local:GenericIcon x:Key="GenericIcons.None" 
+                       IconKind="None" />
+
+    <local:GenericIcon x:Key="GenericIcons.DataNode_Folder" 
+                       IconKind="FolderOutline" 
+                       IconColor="#FF9800" />
+
+    <local:GenericIcon x:Key="GenericIcons.DataNode_File" 
+                       IconKind="FolderOutline" 
+                       IconColor="#9C27B0" />
+
+    <local:GenericIcon x:Key="GenericIcons.DataNode_PackPack" 
+                       IconKind="Package" 
+                       IconColor="#673AB7" />
+
+    <local:GenericIcon x:Key="GenericIcons.DataNode_TexturePack" 
+                       IconKind="ImageMultipleOutline" 
+                       IconColor="#3F51B5" />
+
+    <local:GenericIcon x:Key="GenericIcons.DataNode_GameTexture" 
+                       IconKind="ImageOutline" 
+                       IconColor="#2196F3" />
+
+    <local:GenericIcon x:Key="GenericIcons.DataNode_MeshPack" 
+                       IconKind="Shape" 
+                       IconColor="#4CAF50" />
+
+    <local:GenericIcon x:Key="GenericIcons.DataNode_Scene" 
+                       IconKind="Theater" 
+                       IconColor="#8BC34A" />
+
+    <local:GenericIcon x:Key="GenericIcons.DataNode_Domain" 
+                       IconKind="Domain" 
+                       IconColor="#CDDC39" />
+
+    <local:GenericIcon x:Key="GenericIcons.DataNode_Mesh" 
+                       IconKind="VectorPolygon" 
+                       IconColor="#FFEB3B" />
+
+    <local:GenericIcon x:Key="GenericIcons.DataNode_ScriptPack" 
+                       IconKind="CodeBracesBox" 
+                       IconColor="#795548" />
+
+    <local:GenericIcon x:Key="GenericIcons.DataNode_ScriptClass" 
+                       IconKind="LanguageLua" 
+                       IconColor="#9E9E9E" />
+
+    <local:GenericIcon x:Key="GenericIcons.DataNode_ScriptDoFile" 
+                       IconKind="LanguageLua" 
+                       IconColor="#607D8B" />
+
+    <local:GenericIcon x:Key="GenericIcons.DataNode_Package" 
+                       IconKind="PackageVariantClosed" 
+                       IconColor="#E91E63" />
+
+</ResourceDictionary>

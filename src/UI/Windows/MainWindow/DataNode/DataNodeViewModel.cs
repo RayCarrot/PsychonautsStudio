@@ -1,0 +1,47 @@
+﻿using System;
+using System.Collections.ObjectModel;
+
+namespace PsychonautsTools;
+
+public class DataNodeViewModel : BaseViewModel
+{
+    public DataNodeViewModel(DataNode node, DataNodeViewModel? parent, RootDataNodeViewModel? root)
+    {
+        Node = node;
+        Parent = parent;
+        Root = root ?? this as RootDataNodeViewModel ?? throw new Exception("The root can not be null on a child node");
+
+        if (Parent == null && this != Root)
+            throw new Exception("The parent can not be null on a child node");
+
+        // Create a dummy node if the node should be able to be expanded in the UI
+        if (node.HasChildren)
+            Children.Add(new DataNodeViewModel(new DataNode_Dummy(), this, Root));
+
+        if (Node.SerializableObject != null)
+            SerializerLogViewModel = new DataNodeSerializerLogViewModel(Node, Node.SerializableObject, Root.FileContext);
+    }
+
+    private bool _createdChildren;
+
+    public DataNodeViewModel? Parent { get; }
+    public RootDataNodeViewModel Root { get; }
+    public DataNode Node { get; }
+    public ObservableCollection<DataNodeViewModel> Children { get; } = new();
+    public object? UI => Node.GetUI();
+    public DataNodeSerializerLogViewModel? SerializerLogViewModel { get; }
+    public bool IsSelected { get; set; }
+
+    public void Expand()
+    {
+        if (_createdChildren)
+            return;
+
+        Children.Clear();
+
+        foreach (DataNode childNode in Node.CreateChildren())
+            Children.Add(new DataNodeViewModel(childNode, this, Root));
+
+        _createdChildren = true;
+    }
+}

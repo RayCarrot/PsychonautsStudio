@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="PsychonautsTools.DataNodeUI_GameTexture"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:PsychonautsTools"
+             Background="{DynamicResource MahApps.Brushes.ThemeBackground}"
+             Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" 
+             d:DataContext="{d:DesignInstance local:DataNode_GameTextureViewModel}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <ListBox Grid.Column="0"
+                 MouseLeftButtonDown="Frames_OnMouseLeftButtonDown"
+                 ItemsSource="{Binding Path=Frames, Mode=OneTime}" 
+                 SelectedItem="{Binding Path=SelectedFrame}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                    <Setter Property="Margin" Value="2" />
+                    <Setter Property="Padding" Value="7" />
+                </Style>
+            </ListBox.ItemContainerStyle>
+
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Image DataContext="{Binding Path=ImageSource, Mode=OneTime}" 
+                           Source="{Binding Path=Value, Mode=OneTime}"
+                           Width="64" 
+                           Height="64" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Border Grid.Column="1"
+                Visibility="{Binding Converter={local:InvertedObjectNullToVisibilityConverter}}"
+                BorderThickness="1 0 0 0" 
+                BorderBrush="{DynamicResource MahApps.Brushes.Accent}"
+                Padding="14"
+                DataContext="{Binding Path=SelectedFrame}">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0"
+                        Width="128" 
+                        Height="128">
+                    <Image DataContext="{Binding Path=ImageSource, Mode=OneTime}" 
+                           Source="{Binding Path=Value, Mode=OneTime}" />
+                </Border>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+</UserControl>
