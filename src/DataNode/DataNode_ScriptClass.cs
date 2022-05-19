@@ -13,6 +13,5 @@ public class DataNode_ScriptClass : DataNode
 
     public override string TypeDisplayName => "Script Class";
     public override string DisplayName => ScriptClass.ClassName;
-    public override GenericIconKind IconKind => GenericIconKind.DataNode_ScriptClass;
     public override IBinarySerializable SerializableObject => ScriptClass;
 }

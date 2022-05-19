@@ -20,7 +20,6 @@ public class DataNode_GameTexture : DataNode
 
     public override string TypeDisplayName => "Texture";
     public override string DisplayName { get; }
-    public override GenericIconKind IconKind => GenericIconKind.DataNode_GameTexture;
     public override ImageSource? IconImageSource => ViewModel.Frames.FirstOrDefault()?.ImageSource.Value;
     public override IBinarySerializable SerializableObject => GameTexture;
 

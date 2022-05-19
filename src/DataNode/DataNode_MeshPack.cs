@@ -1,7 +1,6 @@
-﻿using System;
-using PsychoPortal;
+﻿using PsychoPortal;
+using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace PsychonautsTools;
 
@@ -19,15 +18,14 @@ public class DataNode_MeshPack : DataNode
     public override string TypeDisplayName => "Mesh Pack";
     public override string DisplayName => FileName;
     public override bool HasChildren => MeshPack.MeshFiles.AnyAndNotNull();
-    public override GenericIconKind IconKind => GenericIconKind.DataNode_MeshPack;
     public override IBinarySerializable SerializableObject => MeshPack;
 
-    public override IEnumerable<DataNode> CreateChildren()
+    public override IEnumerable<DataNode> CreateChildren(FileContext fileContext)
     {
         if (MeshPack.MeshFiles != null)
             yield return DataNode_Folder.FromTypedFiles(
                 files: MeshPack.MeshFiles, 
                 getFilePathFunc: x => x.FileName, 
-                createFileNodeFunc: x => new Lazy<DataNode>(() => new DataNode_Scene(x.Scene, Path.GetFileName(x.FileName))));
+                createFileNodeFunc: (file, fileName) => new Lazy<DataNode>(() => new DataNode_Scene(file.Scene, fileName)));
     }
 }

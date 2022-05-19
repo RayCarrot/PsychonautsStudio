@@ -16,10 +16,9 @@ public class DataNode_Domain : DataNode
     public override string DisplayName => Domain.Name;
     public override bool HasChildren => Domain.Children.AnyAndNotNull() ||
                                         Domain.Meshes.AnyAndNotNull();
-    public override GenericIconKind IconKind => GenericIconKind.DataNode_Domain;
     public override IBinarySerializable SerializableObject => Domain;
 
-    public override IEnumerable<DataNode> CreateChildren()
+    public override IEnumerable<DataNode> CreateChildren(FileContext fileContext)
     {
         if (Domain.Children != null)
             foreach (Domain domain in Domain.Children)

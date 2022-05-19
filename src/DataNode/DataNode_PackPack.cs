@@ -19,10 +19,9 @@ public class DataNode_PackPack : DataNode
     public override string TypeDisplayName => "Pack Pack";
     public override string DisplayName { get; }
     public override bool HasChildren => true;
-    public override GenericIconKind IconKind => GenericIconKind.DataNode_PackPack;
     public override IBinarySerializable SerializableObject => PackPack;
 
-    public override IEnumerable<DataNode> CreateChildren()
+    public override IEnumerable<DataNode> CreateChildren(FileContext fileContext)
     {
         string name = Path.GetFileNameWithoutExtension(FilePath);
 

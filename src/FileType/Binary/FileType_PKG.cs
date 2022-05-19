@@ -1,4 +1,5 @@
-﻿using PsychoPortal;
+﻿using System.IO;
+using PsychoPortal;
 
 namespace PsychonautsTools;
 
@@ -9,5 +10,5 @@ public class FileType_PKG : BinaryFileType<Package>
     public override string ID => "PKG";
     public override string DisplayName => "Package (.pkg)";
 
-    protected override DataNode CreateDataNode(Package obj, FileContext fileContext) => new DataNode_Package(obj, fileContext);
+    protected override DataNode CreateDataNode(Package obj, FileContext fileContext) => new DataNode_Package(obj, Path.GetFileName(fileContext.FilePath));
 }

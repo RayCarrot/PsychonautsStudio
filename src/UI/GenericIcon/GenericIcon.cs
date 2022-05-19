@@ -5,12 +5,12 @@ namespace PsychonautsTools;
 
 public struct GenericIcon
 {
-    public GenericIcon(PackIconMaterialKind iconKind, Brush iconColor)
+    public GenericIcon(PackIconMaterialKind iconKind, Color iconColor)
     {
         IconKind = iconKind;
         IconColor = iconColor;
     }
 
     public PackIconMaterialKind IconKind { get; set; }
-    public Brush IconColor { get; set; }
+    public Color IconColor { get; set; }
 }

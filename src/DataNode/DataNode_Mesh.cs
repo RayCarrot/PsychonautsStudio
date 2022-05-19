@@ -15,10 +15,9 @@ public class DataNode_Mesh : DataNode
     public override string TypeDisplayName => "Mesh";
     public override string DisplayName => Mesh.Name;
     public override bool HasChildren => Mesh.Children.AnyAndNotNull();
-    public override GenericIconKind IconKind => GenericIconKind.DataNode_Mesh;
     public override IBinarySerializable SerializableObject => Mesh;
 
-    public override IEnumerable<DataNode> CreateChildren()
+    public override IEnumerable<DataNode> CreateChildren(FileContext fileContext)
     {
         if (Mesh.Children != null)
             foreach (Mesh mesh in Mesh.Children)

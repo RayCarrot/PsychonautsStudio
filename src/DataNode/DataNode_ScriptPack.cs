@@ -18,10 +18,9 @@ public class DataNode_ScriptPack : DataNode
     public override string DisplayName => FileName;
     public override bool HasChildren => ScriptPack.Classes.AnyAndNotNull() ||
                                         ScriptPack.Classes.AnyAndNotNull();
-    public override GenericIconKind IconKind => GenericIconKind.DataNode_ScriptPack;
     public override IBinarySerializable SerializableObject => ScriptPack;
 
-    public override IEnumerable<DataNode> CreateChildren()
+    public override IEnumerable<DataNode> CreateChildren(FileContext fileContext)
     {
         if (ScriptPack.Classes != null)
             foreach (ScriptClass scriptClass in ScriptPack.Classes)

@@ -1,7 +1,6 @@
-﻿using System;
-using PsychoPortal;
+﻿using PsychoPortal;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace PsychonautsTools;
@@ -21,10 +20,9 @@ public class DataNode_TexturePack : DataNode
     public override string DisplayName => FileName;
     public override bool HasChildren => TexturePack.Textures.AnyAndNotNull() ||
                                         TexturePack.LocalizedTextures.AnyAndNotNull();
-    public override GenericIconKind IconKind => GenericIconKind.DataNode_TexturePack;
     public override IBinarySerializable SerializableObject => TexturePack;
 
-    public override IEnumerable<DataNode> CreateChildren()
+    public override IEnumerable<DataNode> CreateChildren(FileContext fileContext)
     {
         var textures = TexturePack.Textures.Select(x => new { Texture = x, FileName = x.FileName.Value });
 
@@ -39,6 +37,6 @@ public class DataNode_TexturePack : DataNode
         yield return DataNode_Folder.FromTypedFiles(
             files: textures, 
             getFilePathFunc: x => x.FileName, 
-            createFileNodeFunc: x => new Lazy<DataNode>(() => new DataNode_GameTexture(x.Texture, Path.GetFileName(x.FileName))));
+            createFileNodeFunc: (file, fileName) => new Lazy<DataNode>(() => new DataNode_GameTexture(file.Texture, fileName)));
     }
 }

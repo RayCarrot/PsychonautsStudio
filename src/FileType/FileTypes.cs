@@ -7,9 +7,14 @@ public static class FileTypes
 {
     private static readonly IFileType[] _fileTypes =
     {
-        new FileType_PLB(),
-        new FileType_PPF(),
-        new FileType_PKG(),
+        new FileType_PLB(), // Scene
+        new FileType_JAN(), // Skeleton Animation
+        new FileType_PBA(), // Blend Animation
+        new FileType_EVE(), // Event Animation
+        new FileType_PPF(), // Pack Pack
+        new FileType_LPF(), // Script Pack
+        new FileType_APF(), // Animation Pack
+        new FileType_PKG(), // Package
     };
 
     public static IFileType[] GetFileTypes() => _fileTypes;

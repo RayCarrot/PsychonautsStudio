@@ -19,12 +19,11 @@ public class DataNode_Folder : DataNode
     public override string TypeDisplayName => "Folder";
     public override string DisplayName => FolderName == String.Empty ? "ROOT" : FolderName;
     public override bool HasChildren => true;
-    public override GenericIconKind IconKind => GenericIconKind.DataNode_Folder;
 
     public static DataNode_Folder FromTypedFiles<TFile>(
         IEnumerable<TFile> files,
         Func<TFile, string> getFilePathFunc,
-        Func<TFile, Lazy<DataNode>> createFileNodeFunc)
+        Func<TFile, string, Lazy<DataNode>> createFileNodeFunc)
     {
         DataNode_Folder root = new(String.Empty);
 
@@ -54,7 +53,7 @@ public class DataNode_Folder : DataNode
             }
 
             // Add the file
-            prevItem.Files.Add(createFileNodeFunc(file));
+            prevItem.Files.Add(createFileNodeFunc(file, splitPath.Last()));
         }
 
         return root;
@@ -64,28 +63,28 @@ public class DataNode_Folder : DataNode
         IEnumerable<TFile> files,
         FileContext fileContext,
         Func<TFile, string> getFilePathFunc,
-        Func<TFile, Stream> getFileStreamFunc)
+        Func<TFile, string, Stream> getFileStreamFunc)
     {
-        return FromTypedFiles(files, getFilePathFunc, x =>
+        return FromTypedFiles(files, getFilePathFunc, (file, fileName) =>
         {
-            string filePath = getFilePathFunc(x);
+            string filePath = getFilePathFunc(file);
 
             // Attempt to find a matching file type
             IFileType? type = FileTypes.FindFileType(filePath);
 
             // Use a normal file node if none was found
             if (type == null)
-                return new Lazy<DataNode>(() => new DataNode_File(Path.GetFileName(getFilePathFunc(x))));
+                return new Lazy<DataNode>(() => new DataNode_File(fileName));
 
             return new Lazy<DataNode>(() => type.CreateDataNode(fileContext with
             {
                 FilePath = filePath,
-                FileStream = getFileStreamFunc(x),
+                FileStream = getFileStreamFunc(file, fileName),
             }));
         });
     }
 
-    public override IEnumerable<DataNode> CreateChildren()
+    public override IEnumerable<DataNode> CreateChildren(FileContext fileContext)
     {
         foreach (DataNode_Folder folder in Folders.OrderBy(x => x.DisplayName))
             yield return folder;

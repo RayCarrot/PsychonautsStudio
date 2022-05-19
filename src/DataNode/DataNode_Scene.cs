@@ -1,7 +1,6 @@
-﻿using System;
-using PsychoPortal;
+﻿using PsychoPortal;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace PsychonautsTools;
@@ -19,10 +18,9 @@ public class DataNode_Scene : DataNode
     public override string TypeDisplayName => "Scene";
     public override string DisplayName { get; }
     public override bool HasChildren => true;
-    public override GenericIconKind IconKind => GenericIconKind.DataNode_Scene;
     public override IBinarySerializable SerializableObject => Scene;
 
-    public override IEnumerable<DataNode> CreateChildren()
+    public override IEnumerable<DataNode> CreateChildren(FileContext fileContext)
     {
         if (Scene.ReferencedScenes.AnyAndNotNull())
         {
@@ -33,7 +31,7 @@ public class DataNode_Scene : DataNode
                     FilePath = Scene.RootDomain.RuntimeReferences[i]
                 }), 
                 getFilePathFunc: x => x.FilePath, 
-                createFileNodeFunc: x => new Lazy<DataNode>(() => new DataNode_Scene(x.Scene, Path.GetFileName(x.FilePath))));
+                createFileNodeFunc: (file, fileName) => new Lazy<DataNode>(() => new DataNode_Scene(file.Scene, fileName)));
         }
 
         yield return new DataNode_Domain(Scene.RootDomain);

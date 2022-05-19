@@ -39,7 +39,7 @@ public class DataNodeViewModel : BaseViewModel
 
         Children.Clear();
 
-        foreach (DataNode childNode in Node.CreateChildren())
+        foreach (DataNode childNode in Node.CreateChildren(Root.FileContext))
             Children.Add(new DataNodeViewModel(childNode, this, Root));
 
         _createdChildren = true;

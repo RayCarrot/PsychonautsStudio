@@ -11,5 +11,4 @@ public class DataNode_File : DataNode
 
     public override string TypeDisplayName => "File";
     public override string DisplayName => FileName;
-    public override GenericIconKind IconKind => GenericIconKind.DataNode_File;
 }

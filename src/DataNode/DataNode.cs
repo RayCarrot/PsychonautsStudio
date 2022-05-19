@@ -9,13 +9,12 @@ public abstract class DataNode
     public abstract string TypeDisplayName { get; }
     public abstract string DisplayName { get; }
     public virtual bool HasChildren => false;
-    public abstract GenericIconKind IconKind { get; }
     public virtual ImageSource? IconImageSource => null;
     public virtual IBinarySerializable? SerializableObject => null;
 
     public virtual object? GetUI() => null;
 
-    public virtual IEnumerable<DataNode> CreateChildren()
+    public virtual IEnumerable<DataNode> CreateChildren(FileContext fileContext)
     {
         yield break;
     }

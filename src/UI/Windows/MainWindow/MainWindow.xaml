@@ -36,9 +36,9 @@
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Center"
                                             Visibility="{Binding Path=Node.IconImageSource, Mode=OneTime, Converter={local:ObjectNullToVisibilityConverter}}"
-                                            Kind="{Binding Path=Node.IconKind, Mode=OneTime, Converter={local:GenericIconToIconKindConverter}}"
+                                            Kind="{Binding Path=Node, Mode=OneTime, Converter={local:DataNodeToIconKindConverter}}"
                                             Background="Transparent"
-                                            Foreground="{Binding Path=Node.IconKind, Mode=OneTime, Converter={local:GenericIconToBrushConverter}}"
+                                            Foreground="{Binding Path=Node, Mode=OneTime, Converter={local:DataNodeToIconBrushConverter}}"
                                             ToolTip="{Binding Path=Node.TypeDisplayName, Mode=OneTime}"
                                             Margin="0 0 7 0" />
 

@@ -2,61 +2,92 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:PsychonautsTools">
 
-    <!-- Generic Icons -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Resources.Colors.xaml" />
+    </ResourceDictionary.MergedDictionaries>
 
-    <local:GenericIcon x:Key="GenericIcons.None" 
+    <!-- Data Node Icons -->
+
+    <local:GenericIcon x:Key="DataNodeIcon.None" 
                        IconKind="None" />
 
-    <local:GenericIcon x:Key="GenericIcons.DataNode_Folder" 
-                       IconKind="FolderOutline" 
-                       IconColor="#FF9800" />
 
-    <local:GenericIcon x:Key="GenericIcons.DataNode_File" 
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_Folder" 
                        IconKind="FolderOutline" 
-                       IconColor="#9C27B0" />
+                       IconColor="{StaticResource OrangePrimary500}" />
 
-    <local:GenericIcon x:Key="GenericIcons.DataNode_PackPack" 
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_File" 
+                       IconKind="FolderOutline" 
+                       IconColor="{StaticResource PurplePrimary500}" />
+
+
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_PackPack" 
                        IconKind="Package" 
-                       IconColor="#673AB7" />
+                       IconColor="{StaticResource IndigoPrimary700}" />
 
-    <local:GenericIcon x:Key="GenericIcons.DataNode_TexturePack" 
+
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_TexturePack" 
                        IconKind="ImageMultipleOutline" 
-                       IconColor="#3F51B5" />
+                       IconColor="{StaticResource BluePrimary700}" />
 
-    <local:GenericIcon x:Key="GenericIcons.DataNode_GameTexture" 
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_GameTexture" 
                        IconKind="ImageOutline" 
-                       IconColor="#2196F3" />
+                       IconColor="{StaticResource BluePrimary500}" />
 
-    <local:GenericIcon x:Key="GenericIcons.DataNode_MeshPack" 
+
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_MeshPack" 
                        IconKind="Shape" 
-                       IconColor="#4CAF50" />
+                       IconColor="{StaticResource GreenPrimary700}" />
 
-    <local:GenericIcon x:Key="GenericIcons.DataNode_Scene" 
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_Scene" 
                        IconKind="Theater" 
-                       IconColor="#8BC34A" />
+                       IconColor="{StaticResource GreenPrimary500}" />
 
-    <local:GenericIcon x:Key="GenericIcons.DataNode_Domain" 
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_Domain" 
                        IconKind="Domain" 
-                       IconColor="#CDDC39" />
+                       IconColor="{StaticResource LightGreenPrimary500}" />
 
-    <local:GenericIcon x:Key="GenericIcons.DataNode_Mesh" 
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_Mesh" 
                        IconKind="VectorPolygon" 
-                       IconColor="#FFEB3B" />
+                       IconColor="{StaticResource LimePrimary500}" />
 
-    <local:GenericIcon x:Key="GenericIcons.DataNode_ScriptPack" 
+
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_ScriptPack" 
                        IconKind="CodeBracesBox" 
-                       IconColor="#795548" />
+                       IconColor="{StaticResource BrownPrimary700}" />
 
-    <local:GenericIcon x:Key="GenericIcons.DataNode_ScriptClass" 
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_ScriptClass" 
                        IconKind="LanguageLua" 
-                       IconColor="#9E9E9E" />
+                       IconColor="{StaticResource BrownPrimary500}" />
 
-    <local:GenericIcon x:Key="GenericIcons.DataNode_ScriptDoFile" 
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_ScriptDoFile" 
                        IconKind="LanguageLua" 
-                       IconColor="#607D8B" />
+                       IconColor="{StaticResource GreyPrimary500}" />
 
-    <local:GenericIcon x:Key="GenericIcons.DataNode_Package" 
+
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_AnimPack" 
+                       IconKind="AnimationOutline" 
+                       IconColor="{StaticResource RedPrimary700}" />
+
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_StubSharedSkelAnim" 
+                       IconKind="AnimationPlayOutline" 
+                       IconColor="{StaticResource RedPrimary500}" />
+
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_SharedSkelAnim" 
+                       IconKind="AnimationPlayOutline" 
+                       IconColor="{StaticResource RedPrimary500}" />
+
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_EventAnim" 
+                       IconKind="FlagOutline" 
+                       IconColor="{StaticResource RedPrimary500}" />
+
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_SharedBlendAnim" 
+                       IconKind="EmoticonHappyOutline" 
+                       IconColor="{StaticResource RedPrimary500}" />
+
+
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_Package" 
                        IconKind="PackageVariantClosed" 
-                       IconColor="#E91E63" />
+                       IconColor="{StaticResource DeepPurplePrimary700}" />
 
 </ResourceDictionary>
