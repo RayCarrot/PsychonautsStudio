@@ -2,17 +2,13 @@
 
 namespace PsychonautsTools;
 
-public class DataNode_SharedSkelAnim : DataNode
+public class DataNode_SharedSkelAnim : BinaryDataNode<SharedSkelAnim>
 {
-    public DataNode_SharedSkelAnim(SharedSkelAnim sharedSkelAnim, string displayName)
+    public DataNode_SharedSkelAnim(SharedSkelAnim sharedSkelAnim, string displayName) : base(sharedSkelAnim)
     {
-        SharedSkelAnim = sharedSkelAnim;
         DisplayName = displayName;
     }
 
-    public SharedSkelAnim SharedSkelAnim { get; }
-
     public override string TypeDisplayName => "Skeleton Animation";
     public override string DisplayName { get; }
-    public override IBinarySerializable SerializableObject => SharedSkelAnim;
 }

@@ -2,17 +2,13 @@
 
 namespace PsychonautsTools;
 
-public class DataNode_SharedBlendAnim : DataNode
+public class DataNode_SharedBlendAnim : BinaryDataNode<SharedBlendAnim>
 {
-    public DataNode_SharedBlendAnim(SharedBlendAnim blendAnim, string displayName)
+    public DataNode_SharedBlendAnim(SharedBlendAnim blendAnim, string displayName) : base(blendAnim)
     {
-        BlendAnim = blendAnim;
         DisplayName = displayName;
     }
 
-    public SharedBlendAnim BlendAnim { get; }
-
     public override string TypeDisplayName => "Blend Animation";
     public override string DisplayName { get; }
-    public override IBinarySerializable SerializableObject => BlendAnim;
 }

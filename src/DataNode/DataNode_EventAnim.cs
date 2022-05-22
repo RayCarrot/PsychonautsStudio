@@ -2,17 +2,13 @@
 
 namespace PsychonautsTools;
 
-public class DataNode_EventAnim : DataNode
+public class DataNode_EventAnim : BinaryDataNode<EventAnim>
 {
-    public DataNode_EventAnim(EventAnim eventAnim, string displayName)
+    public DataNode_EventAnim(EventAnim eventAnim, string displayName) : base(eventAnim)
     {
-        EventAnim = eventAnim;
         DisplayName = displayName;
     }
 
-    public EventAnim EventAnim { get; }
-
     public override string TypeDisplayName => "Event Animation";
     public override string DisplayName { get; }
-    public override IBinarySerializable SerializableObject => EventAnim;
 }

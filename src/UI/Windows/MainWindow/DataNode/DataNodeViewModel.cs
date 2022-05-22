@@ -18,8 +18,8 @@ public class DataNodeViewModel : BaseViewModel
         if (node.HasChildren)
             Children.Add(new DataNodeViewModel(new DataNode_Dummy(), this, Root));
 
-        if (Node.SerializableObject != null)
-            SerializerLogViewModel = new DataNodeSerializerLogViewModel(Node, Node.SerializableObject, Root.FileContext);
+        if (Node is BinaryDataNode bin)
+            SerializerLogViewModel = new DataNodeSerializerLogViewModel(Node, bin.SerializableObject, Root.FileContext);
     }
 
     private bool _createdChildren;

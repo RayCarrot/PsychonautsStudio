@@ -4,28 +4,23 @@ using System.Collections.Generic;
 
 namespace PsychonautsTools;
 
-public class DataNode_MeshPack : DataNode
+public class DataNode_MeshPack : BinaryDataNode<MeshPack>
 {
-    public DataNode_MeshPack(MeshPack meshPack, string fileName)
+    public DataNode_MeshPack(MeshPack meshPack, string displayName) : base(meshPack)
     {
-        MeshPack = meshPack;
-        FileName = fileName;
+        DisplayName = displayName;
     }
 
-    public MeshPack MeshPack { get; }
-    public string FileName { get; }
-
     public override string TypeDisplayName => "Mesh Pack";
-    public override string DisplayName => FileName;
-    public override bool HasChildren => MeshPack.MeshFiles.AnyAndNotNull();
-    public override IBinarySerializable SerializableObject => MeshPack;
+    public override string DisplayName { get; }
+    public override bool HasChildren => SerializableObject.MeshFiles.AnyAndNotNull();
 
     public override IEnumerable<DataNode> CreateChildren(FileContext fileContext)
     {
-        if (MeshPack.MeshFiles != null)
+        if (SerializableObject.MeshFiles != null)
             yield return DataNode_Folder.FromTypedFiles(
-                files: MeshPack.MeshFiles, 
-                getFilePathFunc: x => x.FileName, 
+                files: SerializableObject.MeshFiles,
+                getFilePathFunc: x => x.FileName,
                 createFileNodeFunc: (file, fileName) => new Lazy<DataNode>(() => new DataNode_Scene(file.Scene, fileName)));
     }
 }

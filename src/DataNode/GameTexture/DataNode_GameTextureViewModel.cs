@@ -13,7 +13,7 @@ public class DataNode_GameTextureViewModel : BaseViewModel
 
         Frames = new ObservableCollection<TextureFrameViewModel>();
 
-        foreach (TextureFrame frame in Node.GameTexture.Frames)
+        foreach (TextureFrame frame in Node.SerializableObject.Frames)
             Frames.Add(new TextureFrameViewModel(frame, new Lazy<ImageSource?>(() => frame.ToImageSource()), (int)frame.Width, (int)frame.Height));
     }
 

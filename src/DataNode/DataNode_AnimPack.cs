@@ -4,27 +4,22 @@ using PsychoPortal;
 
 namespace PsychonautsTools;
 
-public class DataNode_AnimPack : DataNode
+public class DataNode_AnimPack : BinaryDataNode<AnimPack>
 {
-    public DataNode_AnimPack(AnimPack animPack, string fileName)
+    public DataNode_AnimPack(AnimPack animPack, string displayName) : base(animPack)
     {
-        AnimPack = animPack;
-        FileName = fileName;
+        DisplayName = displayName;
     }
 
-    public AnimPack AnimPack { get; }
-    public string FileName { get; }
-
     public override string TypeDisplayName => "Animation Pack";
-    public override string DisplayName => FileName;
-    public override bool HasChildren => AnimPack.StubSharedAnims.AnyAndNotNull();
-    public override IBinarySerializable SerializableObject => AnimPack;
+    public override string DisplayName { get; }
+    public override bool HasChildren => SerializableObject.StubSharedAnims.AnyAndNotNull();
 
     public override IEnumerable<DataNode> CreateChildren(FileContext fileContext)
     {
-        if (AnimPack.StubSharedAnims != null)
+        if (SerializableObject.StubSharedAnims != null)
             yield return DataNode_Folder.FromTypedFiles(
-                files: AnimPack.StubSharedAnims,
+                files: SerializableObject.StubSharedAnims,
                 getFilePathFunc: x => x.JANFileName,
                 createFileNodeFunc: (file, fileName) => new Lazy<DataNode>(new DataNode_StubSharedSkelAnim(file, fileName)));
     }

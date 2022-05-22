@@ -1,5 +1,4 @@
-﻿using PsychoPortal;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Media;
 
 namespace PsychonautsTools;
@@ -10,7 +9,6 @@ public abstract class DataNode
     public abstract string DisplayName { get; }
     public virtual bool HasChildren => false;
     public virtual ImageSource? IconImageSource => null;
-    public virtual IBinarySerializable? SerializableObject => null;
 
     public virtual object? GetUI() => null;
 

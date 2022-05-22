@@ -5,23 +5,19 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace PsychonautsTools;
 
-public class DataNode_GameTexture : DataNode
+public class DataNode_GameTexture : BinaryDataNode<GameTexture>
 {
-    public DataNode_GameTexture(GameTexture gameTexture, string displayName)
+    public DataNode_GameTexture(GameTexture gameTexture, string displayName) : base(gameTexture)
     {
-        GameTexture = gameTexture;
         DisplayName = displayName;
         ViewModel = new DataNode_GameTextureViewModel(this);
     }
 
     private DataNode_GameTextureViewModel ViewModel { get; }
 
-    public GameTexture GameTexture { get; }
-
     public override string TypeDisplayName => "Texture";
     public override string DisplayName { get; }
     public override ImageSource? IconImageSource => ViewModel.Frames.FirstOrDefault()?.ImageSource.Value;
-    public override IBinarySerializable SerializableObject => GameTexture;
 
     public override object GetUI()
     {

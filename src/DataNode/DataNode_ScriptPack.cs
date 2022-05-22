@@ -3,31 +3,26 @@ using PsychoPortal;
 
 namespace PsychonautsTools;
 
-public class DataNode_ScriptPack : DataNode
+public class DataNode_ScriptPack : BinaryDataNode<ScriptPack>
 {
-    public DataNode_ScriptPack(ScriptPack scriptPack, string fileName)
+    public DataNode_ScriptPack(ScriptPack scriptPack, string displayName) : base(scriptPack)
     {
-        ScriptPack = scriptPack;
-        FileName = fileName;
+        DisplayName = displayName;
     }
 
-    public ScriptPack ScriptPack { get; }
-    public string FileName { get; }
-
     public override string TypeDisplayName => "Script Pack";
-    public override string DisplayName => FileName;
-    public override bool HasChildren => ScriptPack.Classes.AnyAndNotNull() ||
-                                        ScriptPack.Classes.AnyAndNotNull();
-    public override IBinarySerializable SerializableObject => ScriptPack;
+    public override string DisplayName { get; }
+    public override bool HasChildren => SerializableObject.Classes.AnyAndNotNull() ||
+                                        SerializableObject.Classes.AnyAndNotNull();
 
     public override IEnumerable<DataNode> CreateChildren(FileContext fileContext)
     {
-        if (ScriptPack.Classes != null)
-            foreach (ScriptClass scriptClass in ScriptPack.Classes)
+        if (SerializableObject.Classes != null)
+            foreach (ScriptClass scriptClass in SerializableObject.Classes)
                 yield return new DataNode_ScriptClass(scriptClass);
 
-        if (ScriptPack.DoFiles != null)
-            foreach (ScriptDoFile scriptDoFile in ScriptPack.DoFiles)
+        if (SerializableObject.DoFiles != null)
+            foreach (ScriptDoFile scriptDoFile in SerializableObject.DoFiles)
                 yield return new DataNode_ScriptDoFile(scriptDoFile);
     }
 }

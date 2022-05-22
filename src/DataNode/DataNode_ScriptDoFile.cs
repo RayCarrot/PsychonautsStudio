@@ -2,16 +2,10 @@
 
 namespace PsychonautsTools;
 
-public class DataNode_ScriptDoFile : DataNode
+public class DataNode_ScriptDoFile : BinaryDataNode<ScriptDoFile>
 {
-    public DataNode_ScriptDoFile(ScriptDoFile scriptDoFile)
-    {
-        ScriptDoFile = scriptDoFile;
-    }
-
-    public ScriptDoFile ScriptDoFile { get; }
+    public DataNode_ScriptDoFile(ScriptDoFile scriptDoFile) : base(scriptDoFile) { }
 
     public override string TypeDisplayName => "Script Do File";
-    public override string DisplayName => ScriptDoFile.Name;
-    public override IBinarySerializable SerializableObject => ScriptDoFile;
+    public override string DisplayName => SerializableObject.Name; // TODO: Name might be null
 }

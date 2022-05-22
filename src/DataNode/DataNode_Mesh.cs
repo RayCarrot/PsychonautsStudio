@@ -3,24 +3,18 @@ using System.Collections.Generic;
 
 namespace PsychonautsTools;
 
-public class DataNode_Mesh : DataNode
+public class DataNode_Mesh : BinaryDataNode<Mesh>
 {
-    public DataNode_Mesh(Mesh mesh)
-    {
-        Mesh = mesh;
-    }
-
-    public Mesh Mesh { get; }
+    public DataNode_Mesh(Mesh mesh) : base(mesh) { }
 
     public override string TypeDisplayName => "Mesh";
-    public override string DisplayName => Mesh.Name;
-    public override bool HasChildren => Mesh.Children.AnyAndNotNull();
-    public override IBinarySerializable SerializableObject => Mesh;
+    public override string DisplayName => SerializableObject.Name;
+    public override bool HasChildren => SerializableObject.Children.AnyAndNotNull();
 
     public override IEnumerable<DataNode> CreateChildren(FileContext fileContext)
     {
-        if (Mesh.Children != null)
-            foreach (Mesh mesh in Mesh.Children)
+        if (SerializableObject.Children != null)
+            foreach (Mesh mesh in SerializableObject.Children)
                 yield return new DataNode_Mesh(mesh);
     }
 }
