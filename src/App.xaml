@@ -12,6 +12,7 @@
 
                 <!-- Local -->
                 <ResourceDictionary Source="UI/Resources/Resources.Icons.xaml"/>
+                <ResourceDictionary Source="UI/Resources/Styles.TabControl.xaml"/>
                 <ResourceDictionary Source="UI/Resources/Theme.RoundedCorners.xaml"/>
 
             </ResourceDictionary.MergedDictionaries>

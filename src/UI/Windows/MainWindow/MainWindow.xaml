@@ -97,154 +97,117 @@
 
             <!-- Explorer -->
 
-            <GroupBox Grid.Column="0" Padding="0">
-                <GroupBox.Header>
-                    <StackPanel Orientation="Horizontal">
+            <Grid Grid.Column="0">
+                <TreeView ItemsSource="{Binding Path=Nodes, Mode=OneTime}"
+                          AllowDrop="True"
+                          Drop="DataNodes_OnDrop"
+                          MouseLeftButtonDown="DataNodes_OnMouseLeftButtonDown"
+                          SelectedItemChanged="DataNodes_OnSelectedItemChanged">
 
-                        <iconPacks:PackIconMaterial VerticalAlignment="Center"
-                                                    Kind="FolderMultipleOutline"
-                                                    Margin="0 0 7 0" />
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource {x:Type TreeViewItem}}">
+                            <Setter Property="IsSelected" Value="{Binding Path=IsSelected}" />
+                            <EventSetter Event="Expanded" Handler="DataNode_OnExpanded" />
+                            <!-- TODO: Add context menu -->
+                        </Style>
+                    </TreeView.ItemContainerStyle>
 
-                        <TextBlock Text="Explorer" />
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Path=Children, Mode=OneTime}">
+                            <ContentPresenter ContentTemplate="{StaticResource DataTemplate.DataNodeTitle}" />
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
 
-                    </StackPanel>
-                </GroupBox.Header>
+                </TreeView>
 
-                <Grid>
-                    <TreeView ItemsSource="{Binding Path=Nodes, Mode=OneTime}"
-                              AllowDrop="True"
-                              Drop="DataNodes_OnDrop"
-                              MouseLeftButtonDown="DataNodes_OnMouseLeftButtonDown"
-                              SelectedItemChanged="DataNodes_OnSelectedItemChanged">
-
-                        <TreeView.ItemContainerStyle>
-                            <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource {x:Type TreeViewItem}}">
-                                <Setter Property="IsSelected" Value="{Binding Path=IsSelected}" />
-                                <EventSetter Event="Expanded" Handler="DataNode_OnExpanded" />
-                                <!-- TODO: Add context menu -->
-                            </Style>
-                        </TreeView.ItemContainerStyle>
-
-                        <TreeView.ItemTemplate>
-                            <HierarchicalDataTemplate ItemsSource="{Binding Path=Children, Mode=OneTime}">
-                                <ContentPresenter ContentTemplate="{StaticResource DataTemplate.DataNodeTitle}" />
-                            </HierarchicalDataTemplate>
-                        </TreeView.ItemTemplate>
-
-                    </TreeView>
-
-                    <Grid Visibility="{Binding Path=IsLoading, Converter={local:InvertedBooleanToVisibilityConverter}}">
-                        <TextBlock FontSize="14"
-                                   Margin="7"
-                                   Visibility="{Binding Path=IsEmpty, Converter={local:BooleanToVisibilityConverter}}"
-                                   TextAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center">
-                            Open a file by going to <LineBreak/>
-                            File > Open or dropping the file here
-                        </TextBlock>
-                    </Grid>
-
-                    <metro:ProgressRing Visibility="{Binding Path=IsLoading, Converter={local:BooleanToVisibilityConverter}}" />
-
+                <Grid Visibility="{Binding Path=IsLoading, Converter={local:InvertedBooleanToVisibilityConverter}}">
+                    <TextBlock FontSize="14"
+                               Margin="7"
+                               Visibility="{Binding Path=IsEmpty, Converter={local:BooleanToVisibilityConverter}}"
+                               TextAlignment="Center"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center">
+                        Open a file by going to <LineBreak/>
+                        File > Open or dropping the file here
+                    </TextBlock>
                 </Grid>
 
-            </GroupBox>
+                <metro:ProgressRing Visibility="{Binding Path=IsLoading, Converter={local:BooleanToVisibilityConverter}}" />
+
+            </Grid>
 
             <GridSplitter Grid.Column="1" Width="4" Background="Transparent" />
 
-            <Grid Grid.Column="2"
+            <!-- Selected File -->
+
+            <Grid Grid.Column="2" 
+                  Margin="4"
                   DataContext="{Binding Path=SelectedNode}"
                   IsEnabled="{Binding Converter={local:IsNotNullConverter}}">
+
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1.5*" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" /> 
+                    <RowDefinition Height="200" />
                 </Grid.RowDefinitions>
 
-                <!-- File UI -->
+                <!-- Header -->
 
-                <GroupBox Grid.Row="0" Header="{Binding}" HeaderTemplate="{StaticResource DataTemplate.DataNodeTitle}">
-                    <Grid>
-                        <ContentPresenter Content="{Binding Path=UI, Mode=OneTime}" />
+                <ContentPresenter Content="{Binding}" 
+                                  ContentTemplate="{StaticResource DataTemplate.DataNodeTitle}"
+                                  HorizontalAlignment="Center" 
+                                  TextBlock.FontSize="16"
+                                  TextBlock.FontWeight="Bold"/>
 
-                        <TextBlock FontSize="24"
-                                   Visibility="{Binding Converter={local:ObjectNullToVisibilityConverter}, FallbackValue=Visible}"
-                                   Text="No data node selected"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"/>
-                    </Grid>
-                </GroupBox>
+                <!-- UI -->
 
-                <GridSplitter Grid.Row="1" Height="4" Background="Transparent" />
+                <ContentPresenter Grid.Row="1" Content="{Binding Path=UI, Mode=OneTime}" />
 
-                <!-- Serializer Log -->
+                <TextBlock Grid.Row="1"
+                           FontSize="24"
+                           Visibility="{Binding Converter={local:ObjectNullToVisibilityConverter}, FallbackValue=Visible}"
+                           Text="No data node selected"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
 
-                <GroupBox Grid.Row="2" 
-                          DataContext="{Binding Path=SerializerLogViewModel, Mode=OneTime}"
-                          IsEnabled="{Binding Converter={local:IsNotNullConverter}}">
-                    <GroupBox.Header>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
+                <Separator Grid.Row="2" />
 
-                            <StackPanel Grid.Column="0"
-                                        Orientation="Horizontal">
+                <GridSplitter Grid.Row="2" 
+                              Height="4" 
+                              Background="Transparent" />
 
-                                <iconPacks:PackIconMaterial VerticalAlignment="Center"
-                                                            Kind="Text"
-                                                            Margin="0 0 7 0" />
+                <metro:MetroAnimatedTabControl Grid.Row="3">
 
-                                <TextBlock Text="Serializer Log" 
-                                           VerticalAlignment="Center" />
-                                <TextBlock Text=" - " 
-                                           VerticalAlignment="Center"
-                                           Visibility="{Binding Converter={local:InvertedObjectNullToVisibilityConverter}}" />
-                                <TextBlock Text="{Binding Path=Node.DisplayName, Mode=OneTime}"
-                                           VerticalAlignment="Center"/>
+                    <!-- Serializer Log -->
 
-                            </StackPanel>
+                    <TabItem Header="Serializer Log"
+                             DataContext="{Binding Path=SerializerLogViewModel.Value, Mode=OneTime}"
+                             local:TabItemAssist.IconKind="Text">
+                        <Grid Visibility="{Binding Converter={local:InvertedObjectNullToVisibilityConverter}}">
 
-                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                            <TextBox IsReadOnly="True"
+                                     AcceptsReturn="True"
+                                     FontFamily="Consolas"
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                     Text="{Binding Path=Log.Value}" />
 
-                                <Button Content="Load" 
-                                        Padding="4 2"
-                                        Style="{StaticResource MahApps.Styles.Button.MetroWindow.Base}"
-                                        Command="{Binding Path=LoadLogCommand, Mode=OneTime}"
-                                        Margin="0 0 7 0"/>
-
-                                <!-- TODO: Implement -->
-                                <Button Content="Log to file" 
-                                        Padding="4 2"
-                                        Style="{StaticResource MahApps.Styles.Button.MetroWindow.Base}"
-                                        Command="{Binding Path=LoadLogCommand, Mode=OneTime}" />
-
-                            </StackPanel>
+                            <metro:ProgressRing Visibility="{Binding Path=Log.Value, Converter={local:ObjectNullToVisibilityConverter}}" />
 
                         </Grid>
-                    </GroupBox.Header>
+                    </TabItem>
 
-                    <Grid>
+                    <!-- Raw Data -->
 
-                        <TextBox IsReadOnly="True"
-                                 AcceptsReturn="True"
-                                 FontFamily="Consolas"
-                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                 Visibility="{Binding Path=Log, Converter={local:InvertedObjectNullToVisibilityConverter}, FallbackValue=Collapsed}"
-                                 Text="{Binding Path=Log}" />
+                    <TabItem Header="Raw Data"
+                             local:TabItemAssist.IconKind="Hexadecimal">
 
-                        <TextBlock FontSize="24"
-                                   Visibility="{Binding Converter={local:ObjectNullToVisibilityConverter}, FallbackValue=Visible}"
-                                   Text="No serializable data node selected" 
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"/>
+                        <!-- TODO: Implement -->
 
-                    </Grid>
+                    </TabItem>
 
-                </GroupBox>
+                </metro:MetroAnimatedTabControl>
 
             </Grid>
 
