@@ -6,6 +6,7 @@
                    xmlns:local="clr-namespace:PsychonautsTools"
                    xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
                    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                   xmlns:hex="clr-namespace:HexView.Wpf;assembly=HexView.Wpf"
                    mc:Ignorable="d"
                    Loaded="MainWindow_OnLoaded"
                    Closing="MainWindow_OnClosing"
@@ -143,13 +144,14 @@
             <Grid Grid.Column="2" 
                   Margin="4"
                   DataContext="{Binding Path=SelectedNode}"
-                  IsEnabled="{Binding Converter={local:IsNotNullConverter}}">
+                  IsEnabled="{Binding Converter={local:IsNotNullConverter}}"
+                  Visibility="{Binding Converter={local:InvertedObjectNullToVisibilityConverter}}">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" /> 
-                    <RowDefinition Height="200" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="0" x:Name="FileGridFooterRow" />
                 </Grid.RowDefinitions>
 
                 <!-- Header -->
@@ -164,17 +166,12 @@
 
                 <ContentPresenter Grid.Row="1" Content="{Binding Path=UI, Mode=OneTime}" />
 
-                <TextBlock Grid.Row="1"
-                           FontSize="24"
-                           Visibility="{Binding Converter={local:ObjectNullToVisibilityConverter}, FallbackValue=Visible}"
-                           Text="No data node selected"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"/>
-
-                <Separator Grid.Row="2" />
+                <Separator Grid.Row="2" 
+                           Visibility="{Binding Path=IsBinary, Mode=OneTime, Converter={local:BooleanToVisibilityConverter}}" />
 
                 <GridSplitter Grid.Row="2" 
                               Height="4" 
+                              Visibility="{Binding Path=IsBinary, Mode=OneTime, Converter={local:BooleanToVisibilityConverter}}"
                               Background="Transparent" />
 
                 <metro:MetroAnimatedTabControl Grid.Row="3">
@@ -182,9 +179,10 @@
                     <!-- Serializer Log -->
 
                     <TabItem Header="Serializer Log"
-                             DataContext="{Binding Path=SerializerLogViewModel.Value, Mode=OneTime}"
+                             DataContext="{Binding Path=SerializerLogViewModel, Mode=OneTime}"
+                             Visibility="{Binding Converter={local:InvertedObjectNullToVisibilityConverter}}"
                              local:TabItemAssist.IconKind="Text">
-                        <Grid Visibility="{Binding Converter={local:InvertedObjectNullToVisibilityConverter}}">
+                        <Grid DataContext="{Binding Path=Value, Mode=OneTime}">
 
                             <TextBox IsReadOnly="True"
                                      AcceptsReturn="True"
@@ -201,15 +199,35 @@
                     <!-- Raw Data -->
 
                     <TabItem Header="Raw Data"
+                             DataContext="{Binding Path=RawDataViewModel, Mode=OneTime}"
+                             Visibility="{Binding Converter={local:InvertedObjectNullToVisibilityConverter}}"
                              local:TabItemAssist.IconKind="Hexadecimal">
+                        <Grid DataContext="{Binding Path=Value, Mode=OneTime}">
 
-                        <!-- TODO: Implement -->
+                            <hex:HexViewer DataSource="{Binding Path=RawData.Value}" 
+                                           Background="Transparent"
+                                           Foreground="#FFFFFF"
+                                           AddressBrush="#FFFFFF"
+                                           AlternatingDataColumnTextBrush="#B8B8B8"
+                                           SelectionBrush="#424242"
+                                           SelectionTextBrush="#FFFFFF"
+                                           Columns="{Binding RelativeSource={RelativeSource Self}, Path=MaxVisibleColumns}" />
 
+                            <metro:ProgressRing Visibility="{Binding Path=RawData.Value, Converter={local:ObjectNullToVisibilityConverter}}" />
+
+                        </Grid>
                     </TabItem>
 
                 </metro:MetroAnimatedTabControl>
 
             </Grid>
+
+            <TextBlock Grid.Column="2"
+                       FontSize="24"
+                       Visibility="{Binding Path=SelectedNode, Converter={local:ObjectNullToVisibilityConverter}, FallbackValue=Visible}"
+                       Text="No data node selected"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
 
         </Grid>
 

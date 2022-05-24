@@ -18,6 +18,8 @@ public partial class MainWindow : MetroWindow
         DataContext = ViewModel = viewModel;
     }
 
+    private GridLength _prevFileGridFooterRowHeight = new(200);
+
     public MainWindowViewModel ViewModel { get; }
 
     private async void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
@@ -43,7 +45,19 @@ public partial class MainWindow : MetroWindow
 
     private void DataNodes_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
     {
+        // Set the selected node in the view model
         ViewModel.SelectedNode = (DataNodeViewModel)e.NewValue;
+
+        // Check if the serializer log and raw data should be visible
+        bool isBinary = ViewModel.SelectedNode?.IsBinary == true;
+
+        if (!isBinary)
+            _prevFileGridFooterRowHeight = FileGridFooterRow.Height;
+
+        if (_prevFileGridFooterRowHeight.Value == 0)
+            _prevFileGridFooterRowHeight = new GridLength(200);
+
+        FileGridFooterRow.Height = isBinary ? _prevFileGridFooterRowHeight : new GridLength(0);
     }
 
     private void DataNodes_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)

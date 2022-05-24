@@ -19,6 +19,7 @@
 
   <!-- Package References -->
   <ItemGroup>
+    <PackageReference Include="HexView.Wpf" Version="0.1.0" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />

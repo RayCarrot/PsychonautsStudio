@@ -18,13 +18,14 @@ public class DataNodeViewModel : BaseViewModel
         if (node.HasChildren)
             Children.Add(new DataNodeViewModel(new DataNode_Dummy(), this, Root));
 
-        SerializerLogViewModel = new Lazy<SerializerLogViewModel?>(() =>
+        if (Node is BinaryDataNode bin)
         {
-            if (Node is BinaryDataNode bin)
-                return new SerializerLogViewModel(Node.DisplayName, bin.SerializableObject, Root.FileContext);
-            else
-                return null;
-        });
+            IsBinary = true;
+            SerializerLogViewModel = new Lazy<SerializerLogViewModel>(() => 
+                new SerializerLogViewModel(bin.SerializableObject, Root.FileContext.Settings));
+            RawDataViewModel = new Lazy<RawDataViewModel>(() => 
+                new RawDataViewModel(bin.SerializableObject, Root.FileContext.Settings));
+        }
     }
 
     private bool _createdChildren;
@@ -34,7 +35,9 @@ public class DataNodeViewModel : BaseViewModel
     public DataNode Node { get; }
     public ObservableCollection<DataNodeViewModel> Children { get; } = new();
     public object? UI => Node.GetUI();
-    public Lazy<SerializerLogViewModel?> SerializerLogViewModel { get; }
+    public bool IsBinary { get; }
+    public Lazy<SerializerLogViewModel>? SerializerLogViewModel { get; }
+    public Lazy<RawDataViewModel>? RawDataViewModel { get; }
     public bool IsSelected { get; set; }
 
     public void Expand()
