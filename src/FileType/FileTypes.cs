@@ -15,6 +15,11 @@ public static class FileTypes
         new FileType_LPF(), // Script Pack
         new FileType_APF(), // Animation Pack
         new FileType_PKG(), // Package
+
+        new FileType_INI(), // Initialization
+        new FileType_VSH(), // Vertex Shader
+        new FileType_ATX(), // Texture Animation
+        new FileType_ASD(), // Animation Actions
     };
 
     public static IFileType[] GetFileTypes() => _fileTypes;

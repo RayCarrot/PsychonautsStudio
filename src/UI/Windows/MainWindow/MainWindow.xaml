@@ -160,7 +160,8 @@
                                   ContentTemplate="{StaticResource DataTemplate.DataNodeTitle}"
                                   HorizontalAlignment="Center" 
                                   TextBlock.FontSize="16"
-                                  TextBlock.FontWeight="Bold"/>
+                                  TextBlock.FontWeight="Bold"
+                                  Margin="0 0 0 7"/>
 
                 <!-- UI -->
 

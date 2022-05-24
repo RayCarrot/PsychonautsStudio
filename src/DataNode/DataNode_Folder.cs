@@ -68,18 +68,25 @@ public class DataNode_Folder : DataNode
         return FromTypedFiles(files, getFilePathFunc, (file, fileName) =>
         {
             string filePath = getFilePathFunc(file);
+            Stream fileStream = getFileStreamFunc(file, fileName);
 
             // Attempt to find a matching file type
             IFileType? type = FileTypes.FindFileType(filePath);
 
             // Use a normal file node if none was found
             if (type == null)
-                return new Lazy<DataNode>(() => new DataNode_File(fileName));
+            {
+                byte[] fileData = new byte[fileStream.Length];
+                fileStream.Position = 0;
+                int read = fileStream.Read(fileData, 0, fileData.Length);
+                // TODO: Verify amount of read bytes
+                return new Lazy<DataNode>(() => new DataNode_File(fileName, new ByteArray(fileData)));
+            }
 
             return new Lazy<DataNode>(() => type.CreateDataNode(fileContext with
             {
                 FilePath = filePath,
-                FileStream = getFileStreamFunc(file, fileName),
+                FileStream = fileStream,
             }));
         });
     }

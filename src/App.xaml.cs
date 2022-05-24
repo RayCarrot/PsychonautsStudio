@@ -37,6 +37,7 @@ public partial class App : Application
         services.AddTransient<OpenFileViewModel>();
 
         // Add user controls
+        services.AddSingleton<DataNodeUI_Text>();
         services.AddSingleton<DataNodeUI_GameTexture>();
 
         // Add windows

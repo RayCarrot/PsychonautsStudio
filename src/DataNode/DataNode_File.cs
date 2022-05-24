@@ -1,8 +1,8 @@
 ﻿namespace PsychonautsTools;
 
-public class DataNode_File : DataNode
+public class DataNode_File : BinaryDataNode<ByteArray>
 {
-    public DataNode_File(string fileName)
+    public DataNode_File(string fileName, ByteArray fileData) : base(fileData)
     {
         FileName = fileName;
     }

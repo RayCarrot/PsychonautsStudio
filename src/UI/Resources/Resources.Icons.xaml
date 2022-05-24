@@ -17,7 +17,11 @@
                        IconColor="{StaticResource OrangePrimary500}" />
 
     <local:GenericIcon x:Key="DataNodeIcon.DataNode_File" 
-                       IconKind="FolderOutline" 
+                       IconKind="FileOutline" 
+                       IconColor="{StaticResource PurplePrimary500}" />
+
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_Text" 
+                       IconKind="FileDocumentOutline" 
                        IconColor="{StaticResource PurplePrimary500}" />
 
 
