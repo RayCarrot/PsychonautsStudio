@@ -8,7 +8,7 @@
 
     <!-- Data Node Icons -->
 
-    <local:GenericIcon x:Key="DataNodeIcon.None" 
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_Dummy" 
                        IconKind="None" />
 
 

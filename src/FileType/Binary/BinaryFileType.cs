@@ -16,16 +16,9 @@ public abstract class BinaryFileType<T> : IFileType
 
     public DataNode CreateDataNode(FileContext fileContext)
     {
-        // Create the deserializer
-        BinaryDeserializer s = new(fileContext.FileStream, fileContext.Settings, logger: fileContext.Logger);
-
-        // Create the serializable object
-        T obj = new();
-
-        OnPreSerialize(fileContext, obj);
-
         // Serialize the object
-        obj.Serialize(s);
+        T obj = Binary.ReadFromStream<T>(fileContext.FileStream, fileContext.Settings, 
+            logger: fileContext.Logger, onPreSerializing: (_, o) => OnPreSerialize(fileContext, o));
 
         return CreateDataNode(obj, fileContext);
     }

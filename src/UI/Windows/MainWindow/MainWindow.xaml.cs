@@ -51,11 +51,8 @@ public partial class MainWindow : MetroWindow
         // Check if the serializer log and raw data should be visible
         bool isBinary = ViewModel.SelectedNode?.IsBinary == true;
 
-        if (!isBinary)
+        if (FileGridFooterRow.Height.Value != 0)
             _prevFileGridFooterRowHeight = FileGridFooterRow.Height;
-
-        if (_prevFileGridFooterRowHeight.Value == 0)
-            _prevFileGridFooterRowHeight = new GridLength(200);
 
         FileGridFooterRow.Height = isBinary ? _prevFileGridFooterRowHeight : new GridLength(0);
     }

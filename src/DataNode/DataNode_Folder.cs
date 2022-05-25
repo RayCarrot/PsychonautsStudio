@@ -75,19 +75,24 @@ public class DataNode_Folder : DataNode
 
             // Use a normal file node if none was found
             if (type == null)
-            {
-                byte[] fileData = new byte[fileStream.Length];
-                fileStream.Position = 0;
-                int read = fileStream.Read(fileData, 0, fileData.Length);
-                // TODO: Verify amount of read bytes
-                return new Lazy<DataNode>(() => new DataNode_File(fileName, new ByteArray(fileData)));
-            }
+                return new Lazy<DataNode>(() => DataNode_File.FromStream(fileName, fileStream));
 
-            return new Lazy<DataNode>(() => type.CreateDataNode(fileContext with
+            return new Lazy<DataNode>(() =>
             {
-                FilePath = filePath,
-                FileStream = fileStream,
-            }));
+                try
+                {
+                    return type.CreateDataNode(fileContext with
+                    {
+                        FilePath = filePath,
+                        FileStream = fileStream,
+                    });
+                }
+                catch (Exception ex)
+                {
+                    // TODO: Handle exception. Log? Error message?
+                    return DataNode_File.FromStream(fileName, fileStream);
+                }
+            });
         });
     }
 
