@@ -63,27 +63,30 @@
 
         <!-- Menu -->
 
-        <Menu Grid.Row="0">
+        <Menu Grid.Row="0"
+              Margin="0 0 0 4">
             <MenuItem Header="File">
                 <MenuItem Header="Open" 
+                          Icon="{iconPacks:Material FileOutline}"
                           Command="{Binding Path=OpenFileCommand, Mode=OneTime}"
                           InputGestureText="Ctrl+O"/>
                 <Separator />
                 <MenuItem Header="Exit" 
+                          Icon="{iconPacks:Material Close}"
                           InputGestureText="Alt+F4"
                           Click="ExitMenuItem_OnClick"/>
             </MenuItem>
-            <MenuItem Header="Edit">
-                <!-- TODO: Add menu items -->
-            </MenuItem>
-            <MenuItem Header="View">
-                <!-- TODO: Add menu items -->
-            </MenuItem>
             <MenuItem Header="Tools">
-                <!-- TODO: Add menu items -->
+                <!-- TODO: Settings dialog -->
+                <MenuItem Header="Settings"
+                          IsEnabled="False"
+                          Icon="{iconPacks:Material CogOutline}"/>
             </MenuItem>
             <MenuItem Header="Help">
-                <!-- TODO: Add menu items -->
+                <!-- TODO: About dialog -->
+                <MenuItem Header="About"
+                          IsEnabled="False"
+                          Icon="{iconPacks:Material InformationOutline}"/>
             </MenuItem>
         </Menu>
 
