@@ -16,6 +16,7 @@ public partial class MainWindow : MetroWindow
     {
         InitializeComponent();
         DataContext = ViewModel = viewModel;
+        Title += $" ({App.Version})";
     }
 
     private GridLength _prevFileGridFooterRowHeight = new(200);

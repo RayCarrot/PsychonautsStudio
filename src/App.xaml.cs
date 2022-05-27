@@ -59,4 +59,6 @@ public partial class App : Application
     public IServiceProvider ServiceProvider { get; }
 
     public new static App Current => (App)Application.Current;
+
+    public static Version Version => new(0, 1, 0, 0);
 }
