@@ -108,6 +108,10 @@
                           MouseLeftButtonDown="DataNodes_OnMouseLeftButtonDown"
                           SelectedItemChanged="DataNodes_OnSelectedItemChanged">
 
+                    <TreeView.InputBindings>
+                        <KeyBinding Key="Delete" Command="{Binding Path=UnloadSelectedNodeCommand, Mode=OneTime}" />
+                    </TreeView.InputBindings>
+
                     <TreeView.ItemContainerStyle>
                         <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource {x:Type TreeViewItem}}">
                             <Setter Property="IsSelected" Value="{Binding Path=IsSelected}" />

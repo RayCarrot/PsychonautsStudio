@@ -23,6 +23,7 @@ public class MainWindowViewModel : BaseViewModel, IDisposable
         Nodes.CollectionChanged += (_, _) => IsEmpty = Nodes.Count == 0;
         
         OpenFileCommand = new AsyncRelayCommand(OpenFileAsync);
+        UnloadSelectedNodeCommand = new RelayCommand(UnloadSelectedNode);
     }
 
     #endregion
@@ -37,6 +38,7 @@ public class MainWindowViewModel : BaseViewModel, IDisposable
     #region Commands
 
     public ICommand OpenFileCommand { get; }
+    public ICommand UnloadSelectedNodeCommand { get; }
 
     #endregion
 
@@ -154,6 +156,31 @@ public class MainWindowViewModel : BaseViewModel, IDisposable
         {
             IsLoading = false;
         }
+    }
+
+    public void UnloadSelectedNode()
+    {
+        if (SelectedNode is not RootDataNodeViewModel root)
+            return;
+
+        UnloadNode(root);
+    }
+
+    public void UnloadNode(RootDataNodeViewModel node)
+    {
+        int index = Nodes.IndexOf(node);
+
+        if (index == -1)
+            return;
+
+        node.Dispose();
+        Nodes.Remove(node);
+
+        if (index > 0 && index == Nodes.Count)
+            index--;
+
+        if (Nodes.Count > index)
+            Nodes[index].IsSelected = true;
     }
 
     public void Dispose()
