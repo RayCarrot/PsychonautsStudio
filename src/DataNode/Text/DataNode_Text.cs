@@ -4,9 +4,10 @@ namespace PsychonautsTools;
 
 public class DataNode_Text : DataNode
 {
-    public DataNode_Text(string displayName, string text)
+    public DataNode_Text(string displayName, string typeDisplayName, string text)
     {
         DisplayName = displayName;
+        TypeDisplayName = typeDisplayName;
         Text = text;
         ViewModel = new DataNode_TextViewModel(this);
     }
@@ -15,7 +16,7 @@ public class DataNode_Text : DataNode
 
     public string Text { get; }
 
-    public override string TypeDisplayName => "Text File";
+    public override string TypeDisplayName { get; }
     public override string DisplayName { get; }
 
     public override object GetUI()

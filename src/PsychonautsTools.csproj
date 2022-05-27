@@ -19,6 +19,8 @@
 
   <!-- Package References -->
   <ItemGroup>
+    <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="11.1.2" />
+    <PackageReference Include="Magick.NET.SystemWindowsMedia" Version="4.0.16" />
     <PackageReference Include="HexView.Wpf" Version="0.1.0" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />

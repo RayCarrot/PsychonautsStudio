@@ -20,6 +20,8 @@ public static class FileTypes
         new FileType_VSH(), // Vertex Shader
         new FileType_ATX(), // Texture Animation
         new FileType_ASD(), // Animation Actions
+
+        new FileType_Image(), // Image
     };
 
     public static IFileType[] GetFileTypes() => _fileTypes;

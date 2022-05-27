@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace PsychonautsTools;
 
-public class DataNodeViewModel : BaseViewModel
+public class DataNodeViewModel : BaseViewModel, IDisposable
 {
     public DataNodeViewModel(DataNode node, DataNodeViewModel? parent, RootDataNodeViewModel? root)
     {
@@ -51,5 +51,13 @@ public class DataNodeViewModel : BaseViewModel
             Children.Add(new DataNodeViewModel(childNode, this, Root));
 
         _createdChildren = true;
+    }
+
+    public virtual void Dispose()
+    {
+        Node.Dispose();
+
+        foreach (DataNodeViewModel child in Children)
+            child.Dispose();
     }
 }

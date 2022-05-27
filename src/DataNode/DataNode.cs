@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Media;
 
 namespace PsychonautsTools;
 
-public abstract class DataNode
+public abstract class DataNode : IDisposable
 {
     public abstract string TypeDisplayName { get; }
     public abstract string DisplayName { get; }
@@ -16,4 +17,6 @@ public abstract class DataNode
     {
         yield break;
     }
+
+    public virtual void Dispose() { }
 }

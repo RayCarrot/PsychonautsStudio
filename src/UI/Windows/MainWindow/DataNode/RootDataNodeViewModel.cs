@@ -13,8 +13,9 @@ public class RootDataNodeViewModel : DataNodeViewModel, IDisposable
     public FileContext FileContext { get; }
     public IFileType FileType { get; }
 
-    public void Dispose()
+    public override void Dispose()
     {
+        base.Dispose();
         FileContext.Dispose();
     }
 }

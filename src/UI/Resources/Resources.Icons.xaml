@@ -24,6 +24,10 @@
                        IconKind="FileDocumentOutline" 
                        IconColor="{StaticResource PurplePrimary500}" />
 
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_Image" 
+                       IconKind="FileImageOutline" 
+                       IconColor="{StaticResource PurplePrimary500}" />
+
 
     <local:GenericIcon x:Key="DataNodeIcon.DataNode_PackPack" 
                        IconKind="Package" 

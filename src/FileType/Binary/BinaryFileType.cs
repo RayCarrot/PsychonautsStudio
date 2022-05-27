@@ -6,7 +6,7 @@ public abstract class BinaryFileType<T> : IFileType
     where T : IBinarySerializable, new()
 {
     public abstract string[] FileExtensions { get; }
-    public virtual bool LeaveFileStreamOpen => true;
+    public virtual bool LeaveFileStreamOpen => false;
     public abstract string ID { get; }
     public abstract string DisplayName { get; }
 
