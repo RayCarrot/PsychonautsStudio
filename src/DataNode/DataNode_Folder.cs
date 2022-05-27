@@ -10,7 +10,11 @@ public class DataNode_Folder : DataNode
     public DataNode_Folder(string folderName)
     {
         FolderName = folderName;
+        ViewModel = new FolderEditorViewModel(() => CreateChildren(null));
     }
+
+    private FolderEditorViewModel ViewModel { get; }
+    public override EditorViewModel EditorViewModel => ViewModel;
 
     public string FolderName { get; }
     public List<DataNode_Folder> Folders { get; } = new();
@@ -95,7 +99,7 @@ public class DataNode_Folder : DataNode
         });
     }
 
-    public override IEnumerable<DataNode> CreateChildren(FileContext fileContext)
+    public override IEnumerable<DataNode> CreateChildren(FileContext? fileContext)
     {
         foreach (DataNode_Folder folder in Folders.OrderBy(x => x.DisplayName))
             yield return folder;
