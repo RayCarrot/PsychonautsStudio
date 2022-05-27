@@ -102,4 +102,8 @@
                        IconKind="PackageVariantClosed" 
                        IconColor="{StaticResource DeepPurplePrimary700}" />
 
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_ScratchInstallation" 
+                       IconKind="PackageVariantClosed" 
+                       IconColor="{StaticResource DeepPurplePrimary700}" />
+
 </ResourceDictionary>
