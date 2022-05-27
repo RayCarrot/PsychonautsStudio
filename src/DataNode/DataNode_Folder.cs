@@ -67,23 +67,22 @@ public class DataNode_Folder : DataNode
     {
         return FromTypedFiles(files, getFilePathFunc, (file, fileName) =>
         {
-            string filePath = getFilePathFunc(file);
-            Stream fileStream = getFileStreamFunc(file, fileName);
-
             // Attempt to find a matching file type
-            IFileType? type = FileTypes.FindFileType(filePath);
+            IFileType? type = FileTypes.FindFileType(getFilePathFunc(file));
 
             // Use a normal file node if none was found
             if (type == null)
-                return new Lazy<DataNode>(() => DataNode_File.FromStream(fileName, fileStream));
+                return new Lazy<DataNode>(() => DataNode_File.FromStream(fileName, getFileStreamFunc(file, fileName)));
 
             return new Lazy<DataNode>(() =>
             {
+                Stream fileStream = getFileStreamFunc(file, fileName);
+
                 try
                 {
                     return type.CreateDataNode(fileContext with
                     {
-                        FilePath = filePath,
+                        FilePath = getFilePathFunc(file),
                         FileStream = fileStream,
                     });
                 }
