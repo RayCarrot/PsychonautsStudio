@@ -1,12 +1,16 @@
 ﻿using ImageMagick;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
+using System.Windows;
 using System.Windows.Media.Imaging;
+using MahApps.Metro.IconPacks;
 
 namespace PsychonautsTools;
 
-public class ImageEditorViewModel : BaseViewModel, IDisposable
+public class ImageEditorViewModel : EditorViewModel
 {
     public ImageEditorViewModel(AppUIManager appUI, BitmapSource? imgSource)
     {
@@ -33,6 +37,15 @@ public class ImageEditorViewModel : BaseViewModel, IDisposable
 
     public MagickImage? MagickImage { get; }
     public BitmapSource? ImageSource { get; }
+    public string? FileName { get; init; }
+
+    public override IEnumerable<UIItem> GetUIActions() => base.GetUIActions().Concat(new UIItem[]
+    {
+        new UIAction("Export", PackIconMaterialKind.Export,
+            IsValid ? () => Export(FileName) : null),
+        new UIAction("Copy to clipboard", PackIconMaterialKind.ContentCopy,
+            IsValid ? () => Clipboard.SetImage(ImageSource) : null),
+    });
 
     public void Export(string? defaultName = null)
     {
@@ -59,8 +72,9 @@ public class ImageEditorViewModel : BaseViewModel, IDisposable
         }
     }
 
-    public void Dispose()
+    public override void Dispose()
     {
+        base.Dispose();
         MagickImage?.Dispose();
     }
 }

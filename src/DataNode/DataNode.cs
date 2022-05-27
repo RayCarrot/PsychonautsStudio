@@ -12,7 +12,7 @@ public abstract class DataNode : IDisposable
     public abstract string DisplayName { get; }
     public virtual bool HasChildren => false;
     public virtual ImageSource? IconImageSource => null;
-    public virtual object? EditorViewModel => null;
+    public virtual EditorViewModel? EditorViewModel => null;
 
     public virtual IEnumerable<UIItem> GetUIActions() => Array.Empty<UIItem>();
 
@@ -23,7 +23,6 @@ public abstract class DataNode : IDisposable
 
     public virtual void Dispose()
     {
-        if (EditorViewModel is IDisposable d)
-            d.Dispose();
+        EditorViewModel?.Dispose();
     }
 }

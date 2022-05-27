@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace PsychonautsTools;
 
@@ -27,7 +29,12 @@ public class DataNodeViewModel : BaseViewModel, IDisposable
                 new RawDataViewModel(bin.SerializableObject, Root.FileContext.Settings));
         }
 
-        UIItems = new ObservableCollection<UIItem>(node.GetUIActions());
+        IEnumerable<UIItem> uiActions = node.GetUIActions();
+
+        if (node.EditorViewModel != null)
+            uiActions = uiActions.Concat(node.EditorViewModel.GetUIActions());
+
+        UIItems = new ObservableCollection<UIItem>(uiActions);
     }
 
     private bool _createdChildren;

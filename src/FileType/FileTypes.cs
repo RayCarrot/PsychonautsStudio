@@ -18,6 +18,8 @@ public static class FileTypes
         new FileType_APF(), // Animation Pack
         new FileType_PKG(), // Package
         new FileType_ScratchDrive(), // Scratch Drive
+        new FileType_PAK(), // PS2 Pack
+        new FileType_PS2(), // PS2 Texture
 
         new FileType_INI(), // Initialization
         new FileType_VSH(), // Vertex Shader

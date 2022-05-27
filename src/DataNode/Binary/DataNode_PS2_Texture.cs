@@ -1,14 +1,14 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using PsychoPortal;
-using System;
+﻿using System;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Microsoft.Extensions.DependencyInjection;
+using PsychoPortal;
 
 namespace PsychonautsTools;
 
-public class DataNode_TextureFrame : BinaryDataNode<TextureFrame>
+public class DataNode_PS2_Texture : BinaryDataNode<PS2_Texture>
 {
-    public DataNode_TextureFrame(TextureFrame frame, string displayName) : base(frame)
+    public DataNode_PS2_Texture(PS2_Texture texture, string displayName) : base(texture)
     {
         DisplayName = displayName;
 
@@ -16,7 +16,7 @@ public class DataNode_TextureFrame : BinaryDataNode<TextureFrame>
 
         try
         {
-            img = frame.ToImageSource();
+            img = texture.ToImageSource();
         }
         catch (Exception ex)
         {
@@ -32,7 +32,7 @@ public class DataNode_TextureFrame : BinaryDataNode<TextureFrame>
     private ImageEditorViewModel ViewModel { get; }
     public override EditorViewModel EditorViewModel => ViewModel;
 
-    public override string TypeDisplayName => "Texture";
+    public override string TypeDisplayName => "PS2 Texture";
     public override string DisplayName { get; }
     public override ImageSource? IconImageSource => ViewModel.ImageSource;
 }

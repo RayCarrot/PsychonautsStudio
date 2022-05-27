@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
-using MahApps.Metro.IconPacks;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace PsychonautsTools;
 
@@ -13,20 +9,17 @@ public class DataNode_Text : DataNode
         DisplayName = displayName;
         TypeDisplayName = typeDisplayName;
         Text = text;
-        ViewModel = new TextEditorViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), Text);
+        ViewModel = new TextEditorViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), Text)
+        {
+            FileName = displayName
+        };
     }
     
     private TextEditorViewModel ViewModel { get; }
-    public override object EditorViewModel => ViewModel;
+    public override EditorViewModel EditorViewModel => ViewModel;
 
     public string Text { get; }
 
     public override string TypeDisplayName { get; }
     public override string DisplayName { get; }
-
-    public override IEnumerable<UIItem> GetUIActions() => base.GetUIActions().Concat(new UIItem[]
-    {
-        new UIAction("Export", PackIconMaterialKind.Export, () => ViewModel.Export(DisplayName)),
-        new UIAction("Copy to clipboard", PackIconMaterialKind.ContentCopy, () => Clipboard.SetText(Text)),
-    });
 }

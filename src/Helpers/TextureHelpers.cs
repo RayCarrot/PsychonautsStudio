@@ -1,10 +1,9 @@
-﻿using System;
+﻿using PsychoPortal;
+using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using ImageMagick;
-using PsychoPortal;
 
 namespace PsychonautsTools;
 
@@ -77,23 +76,29 @@ public static class TextureHelpers
         return BitmapSource.Create(width, height, DpiX, DpiY, pixelFormat, null, imgData, GetStride(width, pixelFormat));
     }
 
-    public static BitmapSource? ToImageSource(this TextureFrame frame)
+    public static BitmapSource ToImageSource(this TextureFrame frame)
     {
-        // TODO: Handle PS2 textures
-
-        BitmapSource? imgSource = null;
+        BitmapSource imgSource;
 
         if (frame.Type == TextureType.Bitmap)
         {
-            MipSurfaces face = frame.Faces[0];
-            imgSource = CreateBitmapImage(face.Surfaces[0], frame.Format, (int)frame.Width, (int)frame.Height);
+            if (frame.PS2_Faces == null)
+            {
+                MipSurfaces face = frame.Faces[0];
+                imgSource = CreateBitmapImage(face.Surfaces[0], frame.Format, (int)frame.Width, (int)frame.Height);
+            }
+            else
+            {
+                PS2_Texture face = frame.PS2_Faces[0];
+                imgSource = ToImageSource(face);
+            }
         }
         else
         {
-            // TODO: Other texture types
+            throw new NotImplementedException($"Not implemented {frame.Type} texture");
         }
 
-        imgSource?.Freeze();
+        imgSource.Freeze();
 
         return imgSource;
     }
@@ -109,6 +114,100 @@ public static class TextureHelpers
 
         using FileStream fileStream = new(filePath, FileMode.Create);
         encoder.Save(fileStream);
+    }
+
+    #endregion
+
+    #region PS2
+
+    public static BitmapSource ToImageSource(this PS2_Texture tex)
+    {
+        int width = (int)tex.Width;
+        int height = (int)tex.Height;
+
+        // Convert and untile palette
+        Color[] pal = UntilePS2Palette(GetPS2Palette_32(tex.Palette));
+
+        PS2_PixelStorageMode pixelMode = tex.Format.GetTexturePixelStorageMode();
+
+        if (pixelMode == PS2_PixelStorageMode.PSMT8)
+        {
+            byte[] imgData = tex.ImgData;
+
+            if (tex.IsSwizzled)
+                imgData = UnswizzlePS2ImageData_PSMT8(imgData, width, height);
+
+            PixelFormat pixelFormat = PixelFormats.Indexed8;
+            return BitmapSource.Create(width, height, DpiX, DpiY, pixelFormat, new BitmapPalette(pal), imgData, GetStride(width, pixelFormat));
+        }
+        else
+        {
+            throw new NotImplementedException($"Not implemented storage mode {pixelMode}");
+        }
+    }
+
+    public static Color[] GetPS2Palette_32(byte[] palette)
+    {
+        Color[] pal = new Color[palette.Length / 4];
+
+        for (int i = 0; i < pal.Length; i++)
+            pal[i] = Color.FromArgb(
+                (byte)Math.Min(palette[i * 4 + 3] * 2, 255), // TODO: Not fully accurate, but close enough? 128 = fully opaque
+                palette[i * 4 + 0],
+                palette[i * 4 + 1],
+                palette[i * 4 + 2]);
+
+        return pal;
+    }
+
+    public static Color[] UntilePS2Palette(Color[] palette)
+    {
+        Color[] untiledPal = new Color[palette.Length];
+
+        for (int i = 0; i < untiledPal.Length; i++)
+        {
+            int indInBlock = i % 32;
+            int indOldBlock = indInBlock / 8;
+
+            switch (indOldBlock)
+            {
+                case 0:
+                case 3:
+                    untiledPal[i] = palette[i];
+                    break;
+                case 1:
+                    untiledPal[i] = palette[i + 8];
+                    break;
+                case 2:
+                    untiledPal[i] = palette[i - 8];
+                    break;
+            }
+        }
+
+        return untiledPal;
+    }
+
+    // https://github.com/neko68k/rtftool/blob/master/RTFTool/rtfview/p6t_v2.cpp
+    public static byte[] UnswizzlePS2ImageData_PSMT8(byte[] imgData, int width, int height)
+    {
+        byte[] outpixels = new byte[imgData.Length];
+
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                int block_location = (y & (~0xf)) * width + (x & (~0xf)) * 2;
+                int swap_selector = (((y + 2) >> 2) & 0x1) * 4;
+                int posY = (((y & (~3)) >> 1) + (y & 1)) & 0x7;
+                int column_location = posY * width * 2 + ((x + swap_selector) & 0x7) * 4;
+
+                int byte_num = ((y >> 1) & 1) + ((x >> 2) & 2); // 0,1,2,3
+
+                outpixels[y * width + x] = imgData[block_location + column_location + byte_num];
+            }
+        }
+
+        return outpixels;
     }
 
     #endregion

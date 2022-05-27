@@ -46,6 +46,10 @@
                        IconKind="ImageOutline" 
                        IconColor="{StaticResource BluePrimary500}" />
 
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_PS2_Texture" 
+                       IconKind="FileImageOutline" 
+                       IconColor="{StaticResource PurplePrimary500}" />
+
 
     <local:GenericIcon x:Key="DataNodeIcon.DataNode_MeshPack" 
                        IconKind="Shape" 
@@ -103,6 +107,10 @@
                        IconColor="{StaticResource DeepPurplePrimary700}" />
 
     <local:GenericIcon x:Key="DataNodeIcon.DataNode_ScratchInstallation" 
+                       IconKind="PackageVariantClosed" 
+                       IconColor="{StaticResource DeepPurplePrimary700}" />
+
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_PS2_FileTable" 
                        IconKind="PackageVariantClosed" 
                        IconColor="{StaticResource DeepPurplePrimary700}" />
 
