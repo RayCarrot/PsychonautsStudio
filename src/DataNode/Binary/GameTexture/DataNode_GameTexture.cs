@@ -21,8 +21,7 @@ public class DataNode_GameTexture : BinaryDataNode<GameTexture>
 
     public override object GetUI()
     {
-        // Perhaps have a better way of getting the singleton service without a static reference?
-        DataNodeUI_GameTexture ui = App.Current.ServiceProvider.GetRequiredService<DataNodeUI_GameTexture>();
+        DataNodeUI_GameTexture ui = ServiceProvider.GetRequiredService<DataNodeUI_GameTexture>();
         ui.ViewModel = ViewModel;
         return ui;
     }

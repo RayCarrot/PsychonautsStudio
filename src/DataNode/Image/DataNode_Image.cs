@@ -1,6 +1,10 @@
-﻿using System.IO;
-using System.Windows.Media;
+﻿using MahApps.Metro.IconPacks;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using System.Windows.Media;
 
 namespace PsychonautsTools;
 
@@ -9,13 +13,13 @@ public class DataNode_Image : DataNode
     public DataNode_Image(Stream imgStream, string displayName)
     {
         DisplayName = displayName;
-        ViewModel = new DataNode_ImageViewModel(imgStream);
+        ViewModel = new DataNode_ImageViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), imgStream);
     }
 
     public DataNode_Image(byte[] imgData, string displayName)
     {
         DisplayName = displayName;
-        ViewModel = new DataNode_ImageViewModel(imgData);
+        ViewModel = new DataNode_ImageViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), imgData);
     }
 
     private DataNode_ImageViewModel ViewModel { get; }
@@ -24,10 +28,16 @@ public class DataNode_Image : DataNode
     public override string DisplayName { get; }
     public override ImageSource IconImageSource => ViewModel.ImageSource;
 
+    public override IEnumerable<UIItem> GetUIActions() => base.GetUIActions().Concat(new UIItem[]
+    {
+        //new UIAction("Extract", PackIconMaterialKind.ExportVariant, () => { }), // TODO: Implement?
+        new UIAction("Export", PackIconMaterialKind.Export, () => ViewModel.Export(DisplayName)),
+        new UIAction("Copy to clipboard", PackIconMaterialKind.ContentCopy, () => Clipboard.SetImage(ViewModel.ImageSource)),
+    });
+
     public override object GetUI()
     {
-        // Perhaps have a better way of getting the singleton service without a static reference?
-        DataNodeUI_Image ui = App.Current.ServiceProvider.GetRequiredService<DataNodeUI_Image>();
+        DataNodeUI_Image ui = ServiceProvider.GetRequiredService<DataNodeUI_Image>();
         ui.ViewModel = ViewModel;
         return ui;
     }

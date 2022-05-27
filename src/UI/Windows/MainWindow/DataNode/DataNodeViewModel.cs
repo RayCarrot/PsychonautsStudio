@@ -26,6 +26,8 @@ public class DataNodeViewModel : BaseViewModel, IDisposable
             RawDataViewModel = new Lazy<RawDataViewModel>(() => 
                 new RawDataViewModel(bin.SerializableObject, Root.FileContext.Settings));
         }
+
+        UIItems = new ObservableCollection<UIItem>(node.GetUIActions());
     }
 
     private bool _createdChildren;
@@ -34,6 +36,7 @@ public class DataNodeViewModel : BaseViewModel, IDisposable
     public RootDataNodeViewModel Root { get; }
     public DataNode Node { get; }
     public ObservableCollection<DataNodeViewModel> Children { get; } = new();
+    public ObservableCollection<UIItem> UIItems { get; }
     public object? UI => Node.GetUI();
     public bool IsBinary { get; }
     public Lazy<SerializerLogViewModel>? SerializerLogViewModel { get; }

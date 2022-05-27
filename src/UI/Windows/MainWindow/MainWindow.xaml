@@ -159,12 +159,24 @@
 
                 <!-- Header -->
 
-                <ContentPresenter Content="{Binding}" 
-                                  ContentTemplate="{StaticResource DataTemplate.DataNodeTitle}"
-                                  HorizontalAlignment="Center" 
-                                  TextBlock.FontSize="16"
-                                  TextBlock.FontWeight="Bold"
-                                  Margin="0 0 0 7"/>
+                <StackPanel>
+
+                    <ContentPresenter Content="{Binding}" 
+                                      ContentTemplate="{StaticResource DataTemplate.DataNodeTitle}"
+                                      HorizontalAlignment="Center" 
+                                      TextBlock.FontSize="16"
+                                      TextBlock.FontWeight="Bold"
+                                      Margin="0 0 0 7"/>
+
+                    <ToolBar ToolBarTray.IsLocked="True" ItemsSource="{Binding Path=UIItems, Mode=OneTime}">
+                        <ToolBar.ItemTemplateSelector>
+                            <local:ToolBarItemTemplateSelector />
+                        </ToolBar.ItemTemplateSelector>
+                    </ToolBar>
+
+                    <Separator Margin="0 0 0 7" />
+
+                </StackPanel>
 
                 <!-- UI -->
 

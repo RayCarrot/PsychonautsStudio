@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
@@ -55,6 +56,54 @@ public class AppUIManager
             FileName = defaultFilePath,
             InitialDirectory = defaultFilePath != null ? Path.GetDirectoryName(defaultFilePath) : null,
             Title = title,
+        };
+
+        bool? result = dialog.ShowDialog();
+
+        if (result != true)
+            return null;
+
+        return dialog.FileName;
+    }
+
+    #endregion
+
+    #region Save File
+
+    public string? SaveFile(string title, string? defaultFilePath, string[] fileExtensions, bool allowAnyExtension)
+    {
+        StringBuilder filter = new();
+
+        bool first = true;
+
+        foreach (string ext in fileExtensions)
+        {
+            if (!first)
+                filter.Append("|");
+
+            first = false;
+
+            filter.Append(ext.ToUpper());
+            filter.Append(" Files|*.");
+            filter.Append(ext.ToLower());
+        }
+
+        if (fileExtensions.Length == 0 || allowAnyExtension)
+        {
+            if (!first)
+                filter.Append("|");
+
+            filter.Append("All Files|*");
+        }
+
+        SaveFileDialog dialog = new()
+        {
+            FileName = defaultFilePath,
+            InitialDirectory = defaultFilePath != null ? Path.GetDirectoryName(defaultFilePath) : null,
+            Title = title,
+            OverwritePrompt = true,
+            Filter = filter.ToString(),
+            DefaultExt = fileExtensions.Length > 0 ? fileExtensions[0] : null,
         };
 
         bool? result = dialog.ShowDialog();

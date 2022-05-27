@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
+using MahApps.Metro.IconPacks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace PsychonautsTools;
 
@@ -9,7 +13,7 @@ public class DataNode_Text : DataNode
         DisplayName = displayName;
         TypeDisplayName = typeDisplayName;
         Text = text;
-        ViewModel = new DataNode_TextViewModel(this);
+        ViewModel = new DataNode_TextViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), this);
     }
     
     private DataNode_TextViewModel ViewModel { get; }
@@ -19,10 +23,15 @@ public class DataNode_Text : DataNode
     public override string TypeDisplayName { get; }
     public override string DisplayName { get; }
 
+    public override IEnumerable<UIItem> GetUIActions() => base.GetUIActions().Concat(new UIItem[]
+    {
+        new UIAction("Export", PackIconMaterialKind.Export, () => ViewModel.Export(DisplayName)),
+        new UIAction("Copy to clipboard", PackIconMaterialKind.ContentCopy, () => Clipboard.SetText(Text)),
+    });
+
     public override object GetUI()
     {
-        // Perhaps have a better way of getting the singleton service without a static reference?
-        DataNodeUI_Text ui = App.Current.ServiceProvider.GetRequiredService<DataNodeUI_Text>();
+        DataNodeUI_Text ui = ServiceProvider.GetRequiredService<DataNodeUI_Text>();
         ui.ViewModel = ViewModel;
         return ui;
     }
