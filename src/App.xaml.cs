@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace PsychonautsTools;
 
@@ -46,6 +47,13 @@ public partial class App : Application
     public App(IServiceProvider serviceProvider)
     {
         ServiceProvider = serviceProvider;
+
+        DispatcherUnhandledException += App_DispatcherUnhandledException;
+    }
+
+    private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+    {
+        ServiceProvider.GetRequiredService<AppUIManager>().ShowErrorMessage("The application crashed due to a fatal error", e.Exception);
     }
 
     public IServiceProvider ServiceProvider { get; }
