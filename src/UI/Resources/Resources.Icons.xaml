@@ -38,7 +38,11 @@
                        IconKind="ImageMultipleOutline" 
                        IconColor="{StaticResource BluePrimary700}" />
 
-    <local:GenericIcon x:Key="DataNodeIcon.DataNode_GameTexture" 
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_AnimatedGameTexture" 
+                       IconKind="ImageMultipleOutline" 
+                       IconColor="{StaticResource BluePrimary500}" />
+
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_TextureFrame" 
                        IconKind="ImageOutline" 
                        IconColor="{StaticResource BluePrimary500}" />
 

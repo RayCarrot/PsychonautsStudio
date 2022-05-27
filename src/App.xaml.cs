@@ -39,7 +39,6 @@ public partial class App : Application
         // Add user controls
         services.AddSingleton<DataNodeUI_Text>();
         services.AddSingleton<DataNodeUI_Image>();
-        services.AddSingleton<DataNodeUI_GameTexture>();
 
         // Add windows
         services.AddSingleton<MainWindow>();

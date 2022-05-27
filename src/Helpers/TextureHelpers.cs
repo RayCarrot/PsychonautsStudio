@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using ImageMagick;
 using PsychoPortal;
 
 namespace PsychonautsTools;
@@ -76,11 +77,11 @@ public static class TextureHelpers
         return BitmapSource.Create(width, height, DpiX, DpiY, pixelFormat, null, imgData, GetStride(width, pixelFormat));
     }
 
-    public static ImageSource? ToImageSource(this TextureFrame frame)
+    public static BitmapSource? ToImageSource(this TextureFrame frame)
     {
         // TODO: Handle PS2 textures
 
-        ImageSource? imgSource = null;
+        BitmapSource? imgSource = null;
 
         if (frame.Type == TextureType.Bitmap)
         {
@@ -95,6 +96,19 @@ public static class TextureHelpers
         imgSource?.Freeze();
 
         return imgSource;
+    }
+
+    #endregion
+
+    #region Bitmap
+
+    public static void SaveAsPNG(this BitmapSource image, string filePath)
+    {
+        PngBitmapEncoder encoder = new();
+        encoder.Frames.Add(BitmapFrame.Create(image));
+
+        using FileStream fileStream = new(filePath, FileMode.Create);
+        encoder.Save(fileStream);
     }
 
     #endregion

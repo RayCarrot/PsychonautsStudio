@@ -32,6 +32,18 @@ public class DataNode_TexturePack : BinaryDataNode<TexturePack>
         yield return DataNode_Folder.FromTypedFiles(
             files: textures,
             getFilePathFunc: x => x.FileName,
-            createFileNodeFunc: (file, fileName) => new Lazy<DataNode>(() => new DataNode_GameTexture(file.Texture, fileName)));
+            createFileNodeFunc: (file, fileName) => new Lazy<DataNode>(() =>
+            {
+                if (file.Texture.Frames.Length > 1)
+                {
+                    // Animated, wrap everything in an animated texture node
+                    return new DataNode_AnimatedGameTexture(file.Texture, fileName);
+                }
+                else
+                {
+                    // Not animated, so we use the texture frame as is
+                    return new DataNode_TextureFrame(file.Texture.Frames[0], fileName);
+                }
+            }));
     }
 }

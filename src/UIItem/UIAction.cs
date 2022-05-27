@@ -6,11 +6,11 @@ namespace PsychonautsTools;
 
 public class UIAction : UIItem
 {
-    public UIAction(string displayName, PackIconMaterialKind iconKind, Action? action)
+    public UIAction(string displayName, PackIconMaterialKind iconKind, Action? action, bool isEnabled = true)
     {
         DisplayName = displayName;
         IconKind = iconKind;
-        Command = action == null ? new RelayCommand(() => { }, false) : new RelayCommand(action);
+        Command = action == null ? new RelayCommand(() => { }, false) : new RelayCommand(action, isEnabled);
     }
 
     public string DisplayName { get; }

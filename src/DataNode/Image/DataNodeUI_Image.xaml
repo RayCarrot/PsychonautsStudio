@@ -12,7 +12,7 @@
     <ScrollViewer VerticalScrollBarVisibility="Auto"
                   HorizontalScrollBarVisibility="Auto">
         <Image Source="{Binding Path=ImageSource, Mode=OneTime}"
-               Width="{Binding Path=Image.Width, Mode=OneTime}" 
-               Height="{Binding Path=Image.Height, Mode=OneTime}" />
+               Width="{Binding Path=ImageSource.Width, Mode=OneTime, FallbackValue=0}" 
+               Height="{Binding Path=ImageSource.Height, Mode=OneTime, FallbackValue=0}" />
     </ScrollViewer>
 </UserControl>

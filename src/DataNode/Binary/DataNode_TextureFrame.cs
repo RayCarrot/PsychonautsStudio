@@ -1,39 +1,46 @@
-﻿using MahApps.Metro.IconPacks;
-using Microsoft.Extensions.DependencyInjection;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
+using PsychoPortal;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using MahApps.Metro.IconPacks;
 
 namespace PsychonautsTools;
 
-public class DataNode_Image : DataNode
+public class DataNode_TextureFrame : BinaryDataNode<TextureFrame>
 {
-    public DataNode_Image(Stream imgStream, string displayName)
+    public DataNode_TextureFrame(TextureFrame frame, string displayName) : base(frame)
     {
         DisplayName = displayName;
-        ViewModel = new DataNode_ImageViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), imgStream);
-    }
 
-    public DataNode_Image(byte[] imgData, string displayName)
-    {
-        DisplayName = displayName;
-        ViewModel = new DataNode_ImageViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), imgData);
+        BitmapSource? img = null;
+
+        try
+        {
+            img = frame.ToImageSource();
+        }
+        catch (Exception ex)
+        {
+            ServiceProvider.GetRequiredService<AppUIManager>().ShowErrorMessage($"An error occurred when reading the image {displayName}", ex);
+        }
+
+        ViewModel = new DataNode_ImageViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), img);
     }
 
     private DataNode_ImageViewModel ViewModel { get; }
 
-    public override string TypeDisplayName => "Image";
+    public override string TypeDisplayName => "Texture";
     public override string DisplayName { get; }
     public override ImageSource? IconImageSource => ViewModel.ImageSource;
 
     public override IEnumerable<UIItem> GetUIActions() => base.GetUIActions().Concat(new UIItem[]
     {
-        //new UIAction("Extract", PackIconMaterialKind.ExportVariant, () => { }), // TODO: Implement?
-        new UIAction("Export", PackIconMaterialKind.Export, 
+        new UIAction("Export", PackIconMaterialKind.Export,
             ViewModel.IsValid ? () => ViewModel.Export(DisplayName) : null),
-        new UIAction("Copy to clipboard", PackIconMaterialKind.ContentCopy, 
+        new UIAction("Copy to clipboard", PackIconMaterialKind.ContentCopy,
             ViewModel.IsValid ? () => Clipboard.SetImage(ViewModel.ImageSource) : null),
     });
 
