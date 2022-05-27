@@ -27,10 +27,11 @@ public class DataNode_TextureFrame : BinaryDataNode<TextureFrame>
             ServiceProvider.GetRequiredService<AppUIManager>().ShowErrorMessage($"An error occurred when reading the image {displayName}", ex);
         }
 
-        ViewModel = new DataNode_ImageViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), img);
+        ViewModel = new ImageEditorViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), img);
     }
 
-    private DataNode_ImageViewModel ViewModel { get; }
+    private ImageEditorViewModel ViewModel { get; }
+    public override object EditorViewModel => ViewModel;
 
     public override string TypeDisplayName => "Texture";
     public override string DisplayName { get; }
@@ -43,17 +44,4 @@ public class DataNode_TextureFrame : BinaryDataNode<TextureFrame>
         new UIAction("Copy to clipboard", PackIconMaterialKind.ContentCopy,
             ViewModel.IsValid ? () => Clipboard.SetImage(ViewModel.ImageSource) : null),
     });
-
-    public override object GetUI()
-    {
-        DataNodeUI_Image ui = ServiceProvider.GetRequiredService<DataNodeUI_Image>();
-        ui.ViewModel = ViewModel;
-        return ui;
-    }
-
-    public override void Dispose()
-    {
-        base.Dispose();
-        ViewModel.Dispose();
-    }
 }

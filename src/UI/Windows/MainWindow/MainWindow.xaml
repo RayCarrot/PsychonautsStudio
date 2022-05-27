@@ -178,9 +178,13 @@
 
                 </StackPanel>
 
-                <!-- UI -->
+                <!-- Editor -->
 
-                <ContentPresenter Grid.Row="1" Content="{Binding Path=UI, Mode=OneTime}" />
+                <ContentPresenter Grid.Row="1" Content="{Binding Path=EditorViewModel, Mode=OneTime}">
+                    <ContentPresenter.ContentTemplateSelector>
+                        <local:EditorTemplateSelector />
+                    </ContentPresenter.ContentTemplateSelector>
+                </ContentPresenter>
 
                 <Separator Grid.Row="2" 
                            Visibility="{Binding Path=IsBinary, Mode=OneTime, Converter={local:BooleanToVisibilityConverter}}" />

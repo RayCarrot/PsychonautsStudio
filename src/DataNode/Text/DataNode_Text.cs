@@ -13,10 +13,11 @@ public class DataNode_Text : DataNode
         DisplayName = displayName;
         TypeDisplayName = typeDisplayName;
         Text = text;
-        ViewModel = new DataNode_TextViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), this);
+        ViewModel = new TextEditorViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), Text);
     }
     
-    private DataNode_TextViewModel ViewModel { get; }
+    private TextEditorViewModel ViewModel { get; }
+    public override object EditorViewModel => ViewModel;
 
     public string Text { get; }
 
@@ -28,11 +29,4 @@ public class DataNode_Text : DataNode
         new UIAction("Export", PackIconMaterialKind.Export, () => ViewModel.Export(DisplayName)),
         new UIAction("Copy to clipboard", PackIconMaterialKind.ContentCopy, () => Clipboard.SetText(Text)),
     });
-
-    public override object GetUI()
-    {
-        DataNodeUI_Text ui = ServiceProvider.GetRequiredService<DataNodeUI_Text>();
-        ui.ViewModel = ViewModel;
-        return ui;
-    }
 }

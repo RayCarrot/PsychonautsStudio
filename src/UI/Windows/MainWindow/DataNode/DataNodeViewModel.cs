@@ -35,9 +35,9 @@ public class DataNodeViewModel : BaseViewModel, IDisposable
     public DataNodeViewModel? Parent { get; }
     public RootDataNodeViewModel Root { get; }
     public DataNode Node { get; }
+    public object? EditorViewModel => Node.EditorViewModel;
     public ObservableCollection<DataNodeViewModel> Children { get; } = new();
     public ObservableCollection<UIItem> UIItems { get; }
-    public object? UI => Node.GetUI();
     public bool IsBinary { get; }
     public Lazy<SerializerLogViewModel>? SerializerLogViewModel { get; }
     public Lazy<RawDataViewModel>? RawDataViewModel { get; }

@@ -12,15 +12,18 @@ public abstract class DataNode : IDisposable
     public abstract string DisplayName { get; }
     public virtual bool HasChildren => false;
     public virtual ImageSource? IconImageSource => null;
+    public virtual object? EditorViewModel => null;
 
     public virtual IEnumerable<UIItem> GetUIActions() => Array.Empty<UIItem>();
-
-    public virtual object? GetUI() => null;
 
     public virtual IEnumerable<DataNode> CreateChildren(FileContext fileContext)
     {
         yield break;
     }
 
-    public virtual void Dispose() { }
+    public virtual void Dispose()
+    {
+        if (EditorViewModel is IDisposable d)
+            d.Dispose();
+    }
 }

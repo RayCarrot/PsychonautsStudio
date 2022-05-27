@@ -36,10 +36,6 @@ public partial class App : Application
         services.AddSingleton<MainWindowViewModel>();
         services.AddTransient<OpenFileViewModel>();
 
-        // Add user controls
-        services.AddSingleton<DataNodeUI_Text>();
-        services.AddSingleton<DataNodeUI_Image>();
-
         // Add windows
         services.AddSingleton<MainWindow>();
         services.AddTransient<OpenFileWindow>();

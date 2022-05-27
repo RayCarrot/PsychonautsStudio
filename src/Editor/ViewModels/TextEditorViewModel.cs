@@ -3,18 +3,16 @@ using System.IO;
 
 namespace PsychonautsTools;
 
-public class DataNode_TextViewModel : BaseViewModel
+public class TextEditorViewModel : BaseViewModel
 {
-    public DataNode_TextViewModel(AppUIManager appUI, DataNode_Text node)
+    public TextEditorViewModel(AppUIManager appUI, string text)
     {
         AppUI = appUI;
-        Node = node;
-        Text = node.Text;
+        Text = text;
     }
 
     public AppUIManager AppUI { get; }
 
-    public DataNode_Text Node { get; }
     public string Text { get; set; }
 
     public void Export(string? defaultName = null)

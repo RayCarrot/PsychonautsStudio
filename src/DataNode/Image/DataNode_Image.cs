@@ -13,16 +13,17 @@ public class DataNode_Image : DataNode
     public DataNode_Image(Stream imgStream, string displayName)
     {
         DisplayName = displayName;
-        ViewModel = new DataNode_ImageViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), imgStream);
+        ViewModel = new ImageEditorViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), imgStream);
     }
 
     public DataNode_Image(byte[] imgData, string displayName)
     {
         DisplayName = displayName;
-        ViewModel = new DataNode_ImageViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), imgData);
+        ViewModel = new ImageEditorViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), imgData);
     }
 
-    private DataNode_ImageViewModel ViewModel { get; }
+    private ImageEditorViewModel ViewModel { get; }
+    public override object EditorViewModel => ViewModel;
 
     public override string TypeDisplayName => "Image";
     public override string DisplayName { get; }
@@ -36,17 +37,4 @@ public class DataNode_Image : DataNode
         new UIAction("Copy to clipboard", PackIconMaterialKind.ContentCopy, 
             ViewModel.IsValid ? () => Clipboard.SetImage(ViewModel.ImageSource) : null),
     });
-
-    public override object GetUI()
-    {
-        DataNodeUI_Image ui = ServiceProvider.GetRequiredService<DataNodeUI_Image>();
-        ui.ViewModel = ViewModel;
-        return ui;
-    }
-
-    public override void Dispose()
-    {
-        base.Dispose();
-        ViewModel.Dispose();
-    }
 }
