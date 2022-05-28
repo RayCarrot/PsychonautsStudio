@@ -67,6 +67,10 @@
                        IconKind="VectorPolygon" 
                        IconColor="{StaticResource LimePrimary500}" />
 
+    <local:GenericIcon x:Key="DataNodeIcon.DataNode_MeshFrag" 
+                       IconKind="DiamondOutline" 
+                       IconColor="{StaticResource YellowPrimary500}" />
+
 
     <local:GenericIcon x:Key="DataNodeIcon.DataNode_ScriptPack" 
                        IconKind="CodeBracesBox" 

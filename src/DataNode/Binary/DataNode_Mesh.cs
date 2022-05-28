@@ -11,7 +11,8 @@ public class DataNode_Mesh : BinaryDataNode<Mesh>
 
     public override string TypeDisplayName => "Mesh";
     public override string DisplayName => SerializableObject.Name;
-    public override bool HasChildren => SerializableObject.Children.AnyAndNotNull();
+    public override bool HasChildren => SerializableObject.Children.AnyAndNotNull() ||
+                                        SerializableObject.MeshFrags.AnyAndNotNull();
 
     public override IEnumerable<InfoItem> GetInfoItems()
     {
@@ -49,5 +50,11 @@ public class DataNode_Mesh : BinaryDataNode<Mesh>
         if (SerializableObject.Children != null)
             foreach (Mesh mesh in SerializableObject.Children)
                 yield return new DataNode_Mesh(mesh);
+
+        for (var i = 0; i < SerializableObject.MeshFrags.Length; i++)
+        {
+            MeshFrag frag = SerializableObject.MeshFrags[i];
+            yield return new DataNode_MeshFrag(frag, i);
+        }
     }
 }
