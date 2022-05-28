@@ -1,12 +1,11 @@
 ﻿using ImageMagick;
+using MahApps.Metro.IconPacks;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Media.Imaging;
-using MahApps.Metro.IconPacks;
 
 namespace PsychonautsTools;
 
@@ -39,7 +38,7 @@ public class ImageEditorViewModel : EditorViewModel
     public BitmapSource? ImageSource { get; }
     public string? FileName { get; init; }
 
-    public override IEnumerable<UIItem> GetUIActions() => base.GetUIActions().Concat(new UIItem[]
+    public override IEnumerable<UIItem> GetUIActions() => base.GetUIActions().AppendGroup(new UIItem[]
     {
         new UIAction("Export", PackIconMaterialKind.Export,
             IsValid ? () => Export(FileName) : null),

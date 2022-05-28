@@ -1,9 +1,8 @@
-﻿using System;
+﻿using MahApps.Metro.IconPacks;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows;
-using MahApps.Metro.IconPacks;
 
 namespace PsychonautsTools;
 
@@ -20,7 +19,7 @@ public class TextEditorViewModel : EditorViewModel
 
     public string Text { get; set; }
 
-    public override IEnumerable<UIItem> GetUIActions() => base.GetUIActions().Concat(new UIItem[]
+    public override IEnumerable<UIItem> GetUIActions() => base.GetUIActions().AppendGroup(new UIItem[]
     {
         new UIAction("Export", PackIconMaterialKind.Export, () => Export(FileName)),
         new UIAction("Copy to clipboard", PackIconMaterialKind.ContentCopy, () => Clipboard.SetText(Text)),

@@ -7,7 +7,7 @@ namespace PsychonautsTools;
 
 public class DataNodeViewModel : BaseViewModel, IDisposable
 {
-    public DataNodeViewModel(DataNode node, DataNodeViewModel? parent, RootDataNodeViewModel? root)
+    public DataNodeViewModel(DataNode node, DataNodeViewModel? parent, RootDataNodeViewModel? root, FileContext fileContext)
     {
         Node = node;
         Parent = parent;
@@ -18,21 +18,21 @@ public class DataNodeViewModel : BaseViewModel, IDisposable
 
         // Create a dummy node if the node should be able to be expanded in the UI
         if (node.HasChildren)
-            Children.Add(new DataNodeViewModel(new DataNode_Dummy(), this, Root));
+            Children.Add(new DataNodeViewModel(new DataNode_Dummy(), this, Root, fileContext));
 
         if (Node is BinaryDataNode bin)
         {
             IsBinary = true;
             SerializerLogViewModel = new Lazy<SerializerLogViewModel>(() => 
-                new SerializerLogViewModel(bin.SerializableObject, Root.FileContext.Settings));
+                new SerializerLogViewModel(bin.SerializableObject, fileContext.Settings));
             RawDataViewModel = new Lazy<RawDataViewModel>(() => 
-                new RawDataViewModel(bin.SerializableObject, Root.FileContext.Settings));
+                new RawDataViewModel(bin.SerializableObject, fileContext.Settings));
         }
 
-        IEnumerable<UIItem> uiActions = node.GetUIActions();
+        IEnumerable<UIItem> uiActions = node.GetUIActions(fileContext);
 
         if (node.EditorViewModel != null)
-            uiActions = uiActions.Concat(node.EditorViewModel.GetUIActions());
+            uiActions = uiActions.AppendGroup(node.EditorViewModel.GetUIActions());
 
         UIItems = new ObservableCollection<UIItem>(uiActions);
         InfoItems = new ObservableCollection<InfoItem>(node.GetInfoItems());
@@ -61,7 +61,7 @@ public class DataNodeViewModel : BaseViewModel, IDisposable
         Children.Clear();
 
         foreach (DataNode childNode in Node.CreateChildren(Root.FileContext))
-            Children.Add(new DataNodeViewModel(childNode, this, Root));
+            Children.Add(new DataNodeViewModel(childNode, this, Root, Root.FileContext));
 
         _createdChildren = true;
     }

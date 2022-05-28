@@ -4,7 +4,7 @@ namespace PsychonautsTools;
 
 public class RootDataNodeViewModel : DataNodeViewModel, IDisposable
 {
-    public RootDataNodeViewModel(DataNode node, FileContext fileContext, IFileType fileType) : base(node, null, null)
+    public RootDataNodeViewModel(DataNode node, FileContext fileContext, IFileType fileType) : base(node, null, null, fileContext)
     {
         FileContext = fileContext;
         FileType = fileType;

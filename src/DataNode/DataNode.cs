@@ -14,7 +14,7 @@ public abstract class DataNode : IDisposable
     public virtual ImageSource? IconImageSource => null;
     public virtual EditorViewModel? EditorViewModel => null;
 
-    public virtual IEnumerable<UIItem> GetUIActions() => Array.Empty<UIItem>();
+    public virtual IEnumerable<UIItem> GetUIActions(FileContext fileContext) => Array.Empty<UIItem>();
     public virtual IEnumerable<InfoItem> GetInfoItems() => Array.Empty<InfoItem>();
 
     public virtual IEnumerable<DataNode> CreateChildren(FileContext fileContext)
