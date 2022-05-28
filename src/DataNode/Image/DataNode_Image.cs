@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
-using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 using System.Windows.Media;
 
@@ -11,7 +10,7 @@ public class DataNode_Image : DataNode
     public DataNode_Image(Stream imgStream, string displayName)
     {
         DisplayName = displayName;
-        ViewModel = new ImageEditorViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), imgStream)
+        EditorViewModel = new ImageEditorViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), imgStream)
         {
             FileName = displayName
         };
@@ -20,28 +19,26 @@ public class DataNode_Image : DataNode
     public DataNode_Image(byte[] imgData, string displayName)
     {
         DisplayName = displayName;
-        ViewModel = new ImageEditorViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), imgData)
+        EditorViewModel = new ImageEditorViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), imgData)
         {
             FileName = displayName
         };
     }
 
-    private ImageEditorViewModel ViewModel { get; }
-    public override EditorViewModel EditorViewModel => ViewModel;
-
     public override string TypeDisplayName => "Image";
     public override string DisplayName { get; }
-    public override ImageSource? IconImageSource => ViewModel.ImageSource;
+    public override ImageSource? IconImageSource => EditorViewModel.ImageSource;
+    public override ImageEditorViewModel EditorViewModel { get; }
 
     public override IEnumerable<InfoItem> GetInfoItems()
     {
         foreach (InfoItem item in base.GetInfoItems())
             yield return item;
 
-        if (ViewModel.IsValid)
+        if (EditorViewModel.IsValid)
         {
-            yield return new InfoItem("Width", $"{ViewModel.ImageSource.Width}");
-            yield return new InfoItem("Height", $"{ViewModel.ImageSource.Height}");
+            yield return new InfoItem("Width", $"{EditorViewModel.ImageSource.Width}");
+            yield return new InfoItem("Height", $"{EditorViewModel.ImageSource.Height}");
         }
     }
 }

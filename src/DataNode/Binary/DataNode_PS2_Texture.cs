@@ -24,18 +24,16 @@ public class DataNode_PS2_Texture : BinaryDataNode<PS2_Texture>
             ServiceProvider.GetRequiredService<AppUIManager>().ShowErrorMessage($"An error occurred when reading the image {displayName}", ex);
         }
 
-        ViewModel = new ImageEditorViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), img)
+        EditorViewModel = new ImageEditorViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), img)
         {
             FileName = displayName
         };
     }
 
-    private ImageEditorViewModel ViewModel { get; }
-    public override EditorViewModel EditorViewModel => ViewModel;
-
     public override string TypeDisplayName => "PS2 Texture";
     public override string DisplayName { get; }
-    public override ImageSource? IconImageSource => ViewModel.ImageSource;
+    public override ImageSource? IconImageSource => EditorViewModel.ImageSource;
+    public override ImageEditorViewModel EditorViewModel { get; }
 
     public override IEnumerable<InfoItem> GetInfoItems()
     {

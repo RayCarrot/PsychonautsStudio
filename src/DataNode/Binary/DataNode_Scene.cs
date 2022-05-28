@@ -5,12 +5,13 @@ using System.Linq;
 
 namespace PsychonautsTools;
 
-public class DataNode_Scene : BinaryDataNode<Scene, SceneEditorViewModel>
+public class DataNode_Scene : BinaryDataNode<Scene>
 {
-    public DataNode_Scene(Scene scene, string displayName, PLBType? type = null) : base(scene, new SceneEditorViewModel(scene))
+    public DataNode_Scene(Scene scene, string displayName, PLBType? type = null) : base(scene)
     {
         DisplayName = displayName;
         Type = type;
+        EditorViewModel = new SceneEditorViewModel(scene);
     }
 
     public PLBType? Type { get; }
@@ -18,6 +19,7 @@ public class DataNode_Scene : BinaryDataNode<Scene, SceneEditorViewModel>
     public override string TypeDisplayName => "Scene";
     public override string DisplayName { get; }
     public override bool HasChildren => true;
+    public override SceneEditorViewModel EditorViewModel { get; }
 
     public override IEnumerable<InfoItem> GetInfoItems()
     {

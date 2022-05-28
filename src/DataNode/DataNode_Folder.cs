@@ -10,11 +10,10 @@ public class DataNode_Folder : DataNode
     public DataNode_Folder(string folderName)
     {
         FolderName = folderName;
-        ViewModel = new FolderEditorViewModel(() => CreateChildren(null));
+        EditorViewModel = new FolderEditorViewModel(() => CreateChildren(null));
     }
 
-    private FolderEditorViewModel ViewModel { get; }
-    public override EditorViewModel EditorViewModel => ViewModel;
+    public override FolderEditorViewModel EditorViewModel { get; }
 
     public string FolderName { get; }
     public List<DataNode_Folder> Folders { get; } = new();

@@ -3,14 +3,18 @@ using System.Collections.Generic;
 
 namespace PsychonautsTools;
 
-public class DataNode_Domain : BinaryDataNode<Domain, DomainEditorViewModel>
+public class DataNode_Domain : BinaryDataNode<Domain>
 {
-    public DataNode_Domain(Domain domain) : base(domain, new DomainEditorViewModel(domain)) { }
+    public DataNode_Domain(Domain domain) : base(domain)
+    {
+        EditorViewModel = new DomainEditorViewModel(domain);
+    }
 
     public override string TypeDisplayName => "Domain";
     public override string DisplayName => SerializableObject.Name;
     public override bool HasChildren => SerializableObject.Children.AnyAndNotNull() ||
                                         SerializableObject.Meshes.AnyAndNotNull();
+    public override DomainEditorViewModel EditorViewModel { get; }
 
     public override IEnumerable<InfoItem> GetInfoItems()
     {

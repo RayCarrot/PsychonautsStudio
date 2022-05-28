@@ -9,17 +9,15 @@ public class DataNode_Text : DataNode
         DisplayName = displayName;
         TypeDisplayName = typeDisplayName;
         Text = text;
-        ViewModel = new TextEditorViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), Text)
+        EditorViewModel = new TextEditorViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), Text)
         {
             FileName = displayName
         };
     }
     
-    private TextEditorViewModel ViewModel { get; }
-    public override EditorViewModel EditorViewModel => ViewModel;
-
     public string Text { get; }
 
     public override string TypeDisplayName { get; }
     public override string DisplayName { get; }
+    public override TextEditorViewModel EditorViewModel { get; }
 }

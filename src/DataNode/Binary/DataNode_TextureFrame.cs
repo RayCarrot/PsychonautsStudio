@@ -24,18 +24,17 @@ public class DataNode_TextureFrame : BinaryDataNode<TextureFrame>
             ServiceProvider.GetRequiredService<AppUIManager>().ShowErrorMessage($"An error occurred when reading the image {displayName}", ex);
         }
 
-        ViewModel = new ImageEditorViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), img)
+        EditorViewModel = new ImageEditorViewModel(ServiceProvider.GetRequiredService<AppUIManager>(), img)
         {
             FileName = displayName
         };
     }
 
-    private ImageEditorViewModel ViewModel { get; }
-    public override EditorViewModel EditorViewModel => ViewModel;
+    public override ImageEditorViewModel EditorViewModel { get; }
 
     public override string TypeDisplayName => "Texture";
     public override string DisplayName { get; }
-    public override ImageSource? IconImageSource => ViewModel.ImageSource;
+    public override ImageSource? IconImageSource => EditorViewModel.ImageSource;
 
     public override IEnumerable<InfoItem> GetInfoItems()
     {
