@@ -3,7 +3,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:PsychonautsTools">
 
-    <DataTemplate x:Key="DataTemplate.ToolBar.Button" DataType="local:UIAction">
+    <DataTemplate x:Key="DataTemplate.UIAction.ToolBar" DataType="local:UIAction">
         <Button Command="{Binding Path=Command, Mode=OneTime}"
                 Style="{StaticResource MahApps.Styles.Button.ToolBar}">
             <StackPanel Orientation="Horizontal">
@@ -16,7 +16,7 @@
         </Button>
     </DataTemplate>
 
-    <DataTemplate x:Key="DataTemplate.ToolBar.Separator" DataType="local:UISeparator">
+    <DataTemplate x:Key="DataTemplate.UISeparator.ToolBar" DataType="local:UISeparator">
         <Separator Style="{StaticResource MahApps.Styles.Separator.StatusBar}"
                    Margin="2 0"/>
     </DataTemplate>

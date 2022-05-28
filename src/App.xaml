@@ -12,10 +12,12 @@
 
                 <!-- Local -->
                 <ResourceDictionary Source="UI/Resources/Resources.Icons.xaml"/>
+                <ResourceDictionary Source="UI/Resources/Styles.TextBlock.xaml"/>
                 <ResourceDictionary Source="UI/Resources/Styles.TabControl.xaml"/>
                 <ResourceDictionary Source="UI/Resources/Theme.RoundedCorners.xaml"/>
+                <ResourceDictionary Source="UI/Resources/DataTemplates.InfoItem.xaml"/>
+                <ResourceDictionary Source="UI/Resources/DataTemplates.UIItem.xaml"/>
                 <ResourceDictionary Source="Editor/DataTemplates.Editor.xaml"/>
-                <ResourceDictionary Source="UI/Resources/DataTemplates.ToolBar.xaml"/>
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

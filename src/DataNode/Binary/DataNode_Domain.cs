@@ -1,12 +1,11 @@
 ﻿using PsychoPortal;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace PsychonautsTools;
 
-public class DataNode_Domain : BinaryDataNode<Domain>
+public class DataNode_Domain : BinaryDataNode<Domain, DomainEditorViewModel>
 {
-    public DataNode_Domain(Domain domain) : base(domain) { }
+    public DataNode_Domain(Domain domain) : base(domain, new DomainEditorViewModel(domain)) { }
 
     public override string TypeDisplayName => "Domain";
     public override string DisplayName => SerializableObject.Name;
@@ -19,7 +18,7 @@ public class DataNode_Domain : BinaryDataNode<Domain>
             yield return item;
 
         yield return new InfoItem("Bounds", $"{SerializableObject.Bounds}");
-        yield return new InfoItem("Domain Entities", $"{SerializableObject.DomainEntityInfos?.Length ?? 0}"); // TODO: Show these
+        yield return new InfoItem("Domain Entities", $"{SerializableObject.DomainEntityInfos?.Length ?? 0}");
         yield return new InfoItem("Entity Init Data", $"{SerializableObject.EntityInitDatas?.Length ?? 0}");
         yield return new InfoItem("Runtime References", $"{SerializableObject.RuntimeReferences?.Length ?? 0}");
     }

@@ -10,8 +10,8 @@ public class ToolBarItemTemplateSelector : DataTemplateSelector
     {
         return item switch
         {
-            UISeparator => (DataTemplate)App.Current.FindResource("DataTemplate.ToolBar.Separator"),
-            UIAction => (DataTemplate)App.Current.FindResource("DataTemplate.ToolBar.Button"),
+            UISeparator => (DataTemplate)App.Current.FindResource("DataTemplate.UISeparator.ToolBar"),
+            UIAction => (DataTemplate)App.Current.FindResource("DataTemplate.UIAction.ToolBar"),
             _ => throw new Exception($"Invalid UI item type {item.GetType()} for a tool bar item")
         };
     }

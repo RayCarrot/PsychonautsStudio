@@ -182,29 +182,8 @@
 
                     <ItemsControl ItemsSource="{Binding Path=InfoItems, Mode=OneTime}"
                                   Grid.IsSharedSizeScope="True"
-                                  Margin="0 0 0 7">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"
-                                                          SharedSizeGroup="A" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <TextBlock Grid.Column="0"
-                                               Text="{Binding Path=Header, Mode=OneTime}"
-                                               Margin="0 0 7 0"
-                                               FontWeight="Bold" />
-
-                                    <TextBlock Grid.Column="1"
-                                               Text="{Binding Path=Text, Mode=OneTime}"
-                                               TextWrapping="Wrap" />
-
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                                  ItemTemplate="{StaticResource DataTemplate.InfoItem}"
+                                  Margin="0 0 0 7" />
 
                     <Separator Margin="0 0 0 7" 
                                Visibility="{Binding Path=HasInfoItems, Mode=OneTime, Converter={local:BooleanToVisibilityConverter}}" />

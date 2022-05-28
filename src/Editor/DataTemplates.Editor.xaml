@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:PsychonautsTools"
                     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-                    xmlns:b="http://schemas.microsoft.com/xaml/behaviors">
+                    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+                    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
 
     <!-- Image -->
 
@@ -32,12 +33,55 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel>
 
-                <TextBlock FontWeight="Bold" FontSize="14"
-                           Text="Textures" Margin="0 0 0 7" />
+                <TextBlock Style="{StaticResource TextBlock.Header}"
+                           Text="Textures" 
+                           Margin="0 0 0 7" />
 
-                <ListBox ItemsSource="{Binding Path=Textures, Mode=OneTime}" BorderThickness="1" MaxHeight="200">
+                <ListBox ItemsSource="{Binding Path=Textures, Mode=OneTime}" 
+                         BorderThickness="1" 
+                         MaxHeight="200"
+                         Margin="0 0 0 7"/>
 
-                </ListBox>
+            </StackPanel>
+        </ScrollViewer>
+        
+    </DataTemplate>
+
+    <!-- Domain -->
+
+    <DataTemplate x:Key="DataTemplate.DomainEditorViewModel" DataType="local:DomainEditorViewModel">
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+
+                <TextBlock Style="{StaticResource TextBlock.Header}"
+                           Text="Entities" 
+                           Margin="0 0 0 7" />
+
+                <Grid Margin="0 0 0 7">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="7" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <ListBox Grid.Column="0" 
+                             ItemsSource="{Binding Path=Entities, Mode=OneTime}"
+                             SelectedItem="{Binding Path=SelectedEntity}"
+                             DisplayMemberPath="DisplayName"
+                             BorderThickness="1" 
+                             MaxHeight="200" />
+
+                    <Grid Grid.Column="2"
+                          DataContext="{Binding Path=SelectedEntity}">
+
+                        <ItemsControl ItemsSource="{Binding Path=InfoItems, Mode=OneTime}"
+                                      Grid.IsSharedSizeScope="True"
+                                      ItemTemplate="{StaticResource DataTemplate.InfoItem}" />
+
+                    </Grid>
+
+                </Grid>
             </StackPanel>
         </ScrollViewer>
         
