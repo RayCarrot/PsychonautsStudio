@@ -15,6 +15,15 @@ public class DataNode_ScriptPack : BinaryDataNode<ScriptPack>
     public override bool HasChildren => SerializableObject.Classes.AnyAndNotNull() ||
                                         SerializableObject.Classes.AnyAndNotNull();
 
+    public override IEnumerable<InfoItem> GetInfoItems()
+    {
+        foreach (InfoItem item in base.GetInfoItems())
+            yield return item;
+
+        yield return new InfoItem("Classes", $"{SerializableObject.Classes?.Length ?? 0}");
+        yield return new InfoItem("Do Files", $"{SerializableObject.DoFiles?.Length ?? 0}");
+    }
+
     public override IEnumerable<DataNode> CreateChildren(FileContext fileContext)
     {
         if (SerializableObject.Classes != null)

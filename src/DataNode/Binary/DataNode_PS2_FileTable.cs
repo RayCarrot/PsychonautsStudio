@@ -16,6 +16,14 @@ public class DataNode_PS2_FileTable : BinaryDataNode<PS2_FileTable>
     public override string DisplayName { get; }
     public override bool HasChildren => SerializableObject.Files.AnyAndNotNull();
 
+    public override IEnumerable<InfoItem> GetInfoItems()
+    {
+        foreach (InfoItem item in base.GetInfoItems())
+            yield return item;
+
+        yield return new InfoItem("File Table Entries", $"{SerializableObject.Files?.Length ?? 0}");
+    }
+
     public override IEnumerable<DataNode> CreateChildren(FileContext fileContext)
     {
         Dictionary<uint, string> fileTable = PS2_FileNames.FileTable.ToDictionary(PS2_FileEntry.GetFilePathHash);

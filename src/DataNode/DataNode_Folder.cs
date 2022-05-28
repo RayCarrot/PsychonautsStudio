@@ -99,6 +99,15 @@ public class DataNode_Folder : DataNode
         });
     }
 
+    public override IEnumerable<InfoItem> GetInfoItems()
+    {
+        foreach (InfoItem item in base.GetInfoItems())
+            yield return item;
+
+        yield return new InfoItem("Folders", $"{Folders.Count}");
+        yield return new InfoItem("Files", $"{Files.Count}");
+    }
+
     public override IEnumerable<DataNode> CreateChildren(FileContext? fileContext)
     {
         foreach (DataNode_Folder folder in Folders.OrderBy(x => x.DisplayName))

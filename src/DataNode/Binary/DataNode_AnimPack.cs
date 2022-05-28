@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using PsychoPortal;
 
 namespace PsychonautsTools;
@@ -14,6 +15,14 @@ public class DataNode_AnimPack : BinaryDataNode<AnimPack>
     public override string TypeDisplayName => "Animation Pack";
     public override string DisplayName { get; }
     public override bool HasChildren => SerializableObject.StubSharedAnims.AnyAndNotNull();
+
+    public override IEnumerable<InfoItem> GetInfoItems()
+    {
+        foreach (InfoItem item in base.GetInfoItems())
+            yield return item;
+
+        yield return new InfoItem("Animations", $"{SerializableObject.StubSharedAnims?.Length ?? 0}");
+    }
 
     public override IEnumerable<DataNode> CreateChildren(FileContext fileContext)
     {

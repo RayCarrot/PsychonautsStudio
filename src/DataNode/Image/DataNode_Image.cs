@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 using System.Windows.Media;
 
@@ -30,4 +32,16 @@ public class DataNode_Image : DataNode
     public override string TypeDisplayName => "Image";
     public override string DisplayName { get; }
     public override ImageSource? IconImageSource => ViewModel.ImageSource;
+
+    public override IEnumerable<InfoItem> GetInfoItems()
+    {
+        foreach (InfoItem item in base.GetInfoItems())
+            yield return item;
+
+        if (ViewModel.IsValid)
+        {
+            yield return new InfoItem("Width", $"{ViewModel.ImageSource.Width}");
+            yield return new InfoItem("Height", $"{ViewModel.ImageSource.Height}");
+        }
+    }
 }

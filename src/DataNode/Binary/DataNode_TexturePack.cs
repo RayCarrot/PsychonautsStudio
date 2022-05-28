@@ -17,6 +17,17 @@ public class DataNode_TexturePack : BinaryDataNode<TexturePack>
     public override bool HasChildren => SerializableObject.Textures.AnyAndNotNull() ||
                                         SerializableObject.LocalizedTextures.AnyAndNotNull();
 
+    public override IEnumerable<InfoItem> GetInfoItems()
+    {
+        foreach (InfoItem item in base.GetInfoItems())
+            yield return item;
+
+        if (SerializableObject.LocalizedTextures.AnyAndNotNull())
+            yield return new InfoItem("Languages", $"{String.Join(", ", SerializableObject.LocalizedTextures.Select(x => x.Language))}");
+
+        yield return new InfoItem("Textures", $"{SerializableObject.Textures?.Length ?? 0}");
+    }
+
     public override IEnumerable<DataNode> CreateChildren(FileContext fileContext)
     {
         var textures = SerializableObject.Textures.Select(x => new { Texture = x, FileName = x.FileName.Value });

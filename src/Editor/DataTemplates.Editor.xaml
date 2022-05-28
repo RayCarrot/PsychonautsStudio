@@ -25,6 +25,24 @@
                  ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
     </DataTemplate>
 
+    <!-- Scene -->
+
+    <DataTemplate x:Key="DataTemplate.SceneEditorViewModel" DataType="local:SceneEditorViewModel">
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+
+                <TextBlock FontWeight="Bold" FontSize="14"
+                           Text="Textures" Margin="0 0 0 7" />
+
+                <ListBox ItemsSource="{Binding Path=Textures, Mode=OneTime}" BorderThickness="1" MaxHeight="200">
+
+                </ListBox>
+            </StackPanel>
+        </ScrollViewer>
+        
+    </DataTemplate>
+
     <!-- Folder -->
 
     <DataTemplate x:Key="DataTemplate.FolderEditorViewModel" DataType="local:FolderEditorViewModel">

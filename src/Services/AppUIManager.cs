@@ -123,7 +123,7 @@ public class AppUIManager
         if (exception != null)
             message += $"{Environment.NewLine}{Environment.NewLine}Error: {exception.Message}";
 
-        MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        App.Current.Dispatcher.BeginInvoke(() => MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error));
     }
 
     #endregion

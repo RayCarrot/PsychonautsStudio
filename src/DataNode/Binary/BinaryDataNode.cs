@@ -24,3 +24,21 @@ public abstract class BinaryDataNode<T> : BinaryDataNode
         protected set => base.SerializableObject = value;
     }
 }
+
+public abstract class BinaryDataNode<T, VM> : BinaryDataNode
+    where T : class, IBinarySerializable, new()
+    where VM : EditorViewModel
+{
+    protected BinaryDataNode(T serializableObject, VM editorViewModel) : base(serializableObject)
+    {
+        EditorViewModel = editorViewModel;
+    }
+
+    public new T SerializableObject
+    {
+        get => base.SerializableObject as T ?? throw new Exception($"Serializable object is not of correct type {typeof(T)}");
+        protected set => base.SerializableObject = value;
+    }
+
+    public override VM EditorViewModel { get; }
+}

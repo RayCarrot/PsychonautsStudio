@@ -35,6 +35,7 @@ public class DataNodeViewModel : BaseViewModel, IDisposable
             uiActions = uiActions.Concat(node.EditorViewModel.GetUIActions());
 
         UIItems = new ObservableCollection<UIItem>(uiActions);
+        InfoItems = new ObservableCollection<InfoItem>(node.GetInfoItems());
     }
 
     private bool _createdChildren;
@@ -45,6 +46,8 @@ public class DataNodeViewModel : BaseViewModel, IDisposable
     public object? EditorViewModel => Node.EditorViewModel;
     public ObservableCollection<DataNodeViewModel> Children { get; } = new();
     public ObservableCollection<UIItem> UIItems { get; }
+    public ObservableCollection<InfoItem> InfoItems { get; }
+    public bool HasInfoItems => InfoItems.Any();
     public bool IsBinary { get; }
     public Lazy<SerializerLogViewModel>? SerializerLogViewModel { get; }
     public Lazy<RawDataViewModel>? RawDataViewModel { get; }

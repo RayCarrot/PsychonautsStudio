@@ -16,6 +16,25 @@ public class DataNode_StubSharedSkelAnim : BinaryDataNode<StubSharedSkelAnim>
     public override bool HasChildren => SerializableObject.EventAnim != null ||
                                         SerializableObject.BlendAnim != null;
 
+    public override IEnumerable<InfoItem> GetInfoItems()
+    {
+        foreach (InfoItem item in base.GetInfoItems())
+            yield return item;
+
+        yield return new InfoItem("Version", $"{SerializableObject.Header.Version}");
+        yield return new InfoItem("Flags", $"{SerializableObject.Header.Flags}");
+        yield return new InfoItem("Joints", $"{SerializableObject.Header.JointsCount}");
+
+        if (SerializableObject.Header.Version >= 201)
+        {
+            yield return new InfoItem("Length", $"{SerializableObject.Header.V201_AnimLength}");
+            yield return new InfoItem("Translation Mode", $"{SerializableObject.Header.V201_TranslateMode}");
+        }
+
+        yield return new InfoItem("Root Joint", $"{SerializableObject.RootJointName}");
+        yield return new InfoItem("Has Global Position Channel", $"{SerializableObject.PositionChannel != null}");
+    }
+
     public override IEnumerable<DataNode> CreateChildren(FileContext fileContext)
     {
         if (SerializableObject.EventAnim != null)

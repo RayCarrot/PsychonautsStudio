@@ -14,7 +14,7 @@
                    TitleCharacterCasing="Normal"
                    Title="Psychonauts Tools" 
                    MinWidth="400" MinHeight="300"
-                   Width="900" Height="600"
+                   Width="1080" Height="800"
                    Background="{DynamicResource MahApps.Brushes.ThemeBackground}"
                    Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" 
                    d:DataContext="{d:DesignInstance local:MainWindowViewModel}">
@@ -179,6 +179,35 @@
                     </ToolBar>
 
                     <Separator Margin="0 0 0 7" />
+
+                    <ItemsControl ItemsSource="{Binding Path=InfoItems, Mode=OneTime}"
+                                  Grid.IsSharedSizeScope="True"
+                                  Margin="0 0 0 7">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"
+                                                          SharedSizeGroup="A" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Column="0"
+                                               Text="{Binding Path=Header, Mode=OneTime}"
+                                               Margin="0 0 7 0"
+                                               FontWeight="Bold" />
+
+                                    <TextBlock Grid.Column="1"
+                                               Text="{Binding Path=Text, Mode=OneTime}"
+                                               TextWrapping="Wrap" />
+
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <Separator Margin="0 0 0 7" 
+                               Visibility="{Binding Path=HasInfoItems, Mode=OneTime, Converter={local:BooleanToVisibilityConverter}}" />
 
                 </StackPanel>
 
