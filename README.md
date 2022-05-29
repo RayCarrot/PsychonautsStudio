@@ -10,4 +10,5 @@ Psychonauts Studio is a work in process tool for working with the different file
 ## Upcoming Features
 * Modify data from the loaded files, such as replacing textures or level entities
 * Batch-tools, such as exporting all textures from a package
+* Support all texture types
 * Convert file formats between versions
