@@ -81,18 +81,22 @@ public class DataNode_Folder : DataNode
             {
                 Stream fileStream = getFileStreamFunc(file, fileName);
 
+                FileContext childFileContext = new(getFilePathFunc(file), fileStream, fileContext.Settings, fileContext.Logger);
+                fileContext.AddChild(childFileContext);
+
                 try
                 {
-                    return type.CreateDataNode(fileContext with
-                    {
-                        FilePath = getFilePathFunc(file),
-                        FileStream = fileStream,
-                    });
+                    return type.CreateDataNode(childFileContext);
                 }
                 catch (Exception ex)
                 {
                     // TODO: Handle exception. Log? Error message?
                     return DataNode_File.FromStream(fileName, fileStream);
+                }
+                finally
+                {
+                    if (!type.LeaveFileStreamOpen)
+                        childFileContext.Dispose();
                 }
             });
         });

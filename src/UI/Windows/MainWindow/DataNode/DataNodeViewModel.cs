@@ -29,7 +29,7 @@ public class DataNodeViewModel : BaseViewModel, IDisposable
                 new RawDataViewModel(bin.SerializableObject, fileContext.Settings));
         }
 
-        IEnumerable<UIItem> uiActions = node.GetUIActions(fileContext);
+        IEnumerable<UIItem> uiActions = node.GetUIActions(fileContext); // TODO: The file context here might be incorrect if we are in a child context
 
         if (node.EditorViewModel != null)
             uiActions = uiActions.AppendGroup(node.EditorViewModel.GetUIActions());

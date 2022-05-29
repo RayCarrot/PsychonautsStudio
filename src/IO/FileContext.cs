@@ -5,9 +5,24 @@ using PsychoPortal;
 
 namespace PsychonautsStudio;
 
-public record FileContext(string FilePath, Stream FileStream, PsychonautsSettings Settings, IBinarySerializerLogger? Logger) : IDisposable
+public class FileContext : IDisposable
 {
+    public FileContext(string filePath, Stream fileStream, PsychonautsSettings settings, IBinarySerializerLogger? logger)
+    {
+        FilePath = filePath;
+        _fileStream = fileStream;
+        Settings = settings;
+        Logger = logger;
+    }
+
     private readonly Dictionary<string, FileContext> _dependencies = new();
+    private readonly HashSet<FileContext> _children = new();
+    private Stream? _fileStream;
+
+    public string FilePath { get; }
+    public Stream FileStream => _fileStream ?? throw new ObjectDisposedException(nameof(FileStream));
+    public PsychonautsSettings Settings { get; }
+    public IBinarySerializerLogger? Logger { get; }
 
     public bool HasDependency(string key) => _dependencies.ContainsKey(key);
     public void AddDependency(string key, string filePath)
@@ -19,11 +34,20 @@ public record FileContext(string FilePath, Stream FileStream, PsychonautsSetting
     }
     public FileContext GetDependency(string key) => _dependencies[key];
 
+    public void AddChild(FileContext child)
+    {
+        _children.Add(child);
+    }
+
     public void Dispose()
     {
-        FileStream.Dispose();
+        _fileStream?.Dispose();
+        _fileStream = null;
 
         foreach (FileContext dep in _dependencies.Values)
             dep.Dispose();
+        
+        foreach (FileContext child in _children)
+            child.Dispose();
     }
 }
