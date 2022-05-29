@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 /// <summary>
 /// A RelayCommand to use for standard commands

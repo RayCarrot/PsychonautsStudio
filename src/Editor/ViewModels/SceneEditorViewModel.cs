@@ -2,7 +2,7 @@
 using System.Linq;
 using PsychoPortal;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class SceneEditorViewModel : EditorViewModel
 {

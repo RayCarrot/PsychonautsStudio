@@ -2,7 +2,7 @@
 using System;
 using System.Globalization;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 /// <summary>
 /// Converts an <see cref="Object"/> to a <see cref="Boolean"/> which is true when the value is not null

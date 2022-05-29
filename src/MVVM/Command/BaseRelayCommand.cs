@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 /// <summary>
 /// A base RelayCommand to use for RelayCommands

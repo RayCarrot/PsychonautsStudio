@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class EditorTemplateSelector : DataTemplateSelector
 {

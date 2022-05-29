@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class DataNode_Folder : DataNode
 {

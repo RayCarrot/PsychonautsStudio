@@ -1,7 +1,7 @@
 ﻿using System.Windows.Media;
 using MahApps.Metro.IconPacks;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public struct GenericIcon
 {

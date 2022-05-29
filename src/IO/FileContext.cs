@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using PsychoPortal;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public record FileContext(string FilePath, Stream FileStream, PsychonautsSettings Settings, IBinarySerializerLogger? Logger) : IDisposable
 {

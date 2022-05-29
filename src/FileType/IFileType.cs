@@ -1,4 +1,4 @@
-﻿namespace PsychonautsTools;
+﻿namespace PsychonautsStudio;
 
 public interface IFileType
 {

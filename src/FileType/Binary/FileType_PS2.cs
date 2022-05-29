@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using PsychoPortal;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class FileType_PS2 : BinaryFileType<PS2_Texture>
 {

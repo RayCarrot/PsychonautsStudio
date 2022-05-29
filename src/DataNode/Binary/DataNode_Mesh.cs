@@ -3,7 +3,7 @@ using PsychoPortal;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class DataNode_Mesh : BinaryDataNode<Mesh>
 {

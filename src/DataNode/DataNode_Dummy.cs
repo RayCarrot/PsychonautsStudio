@@ -1,4 +1,4 @@
-﻿namespace PsychonautsTools;
+﻿namespace PsychonautsStudio;
 
 public class DataNode_Dummy : DataNode
 {

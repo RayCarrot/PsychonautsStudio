@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 /// <summary>
 /// A RelayCommand to use for async Tasks

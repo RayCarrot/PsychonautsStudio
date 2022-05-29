@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class BindableAsyncLazy<T> : BaseViewModel
     where T : class

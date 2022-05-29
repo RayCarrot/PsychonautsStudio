@@ -1,7 +1,7 @@
 ﻿using PsychoPortal;
 using System.Threading.Tasks;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class SerializerLogViewModel : BaseViewModel
 {

@@ -3,7 +3,7 @@ using System;
 using System.Globalization;
 using System.Windows;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 /// <summary>
 /// Converts a <see cref="Object"/> to a <see cref="Visibility"/> which is set to <see cref="Visibility.Visible"/> when the value is null

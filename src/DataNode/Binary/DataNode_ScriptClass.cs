@@ -1,6 +1,6 @@
 ﻿using PsychoPortal;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class DataNode_ScriptClass : BinaryDataNode<ScriptClass>
 {

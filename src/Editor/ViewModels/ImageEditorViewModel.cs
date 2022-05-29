@@ -7,7 +7,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class ImageEditorViewModel : EditorViewModel
 {

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class FileType_Image : IFileType
 {

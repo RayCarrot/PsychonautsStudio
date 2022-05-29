@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows;
 using Microsoft.Xaml.Behaviors;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public abstract class AttachableForStyleBehavior<TComponent, TBehavior> : Behavior<TComponent>
     where TComponent : DependencyObject

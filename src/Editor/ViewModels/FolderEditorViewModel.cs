@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class FolderEditorViewModel : EditorViewModel
 {

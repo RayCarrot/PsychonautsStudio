@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public static class FileTypes
 {

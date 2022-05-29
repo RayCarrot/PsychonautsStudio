@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class DataNode_PackPack : BinaryDataNode<PackPack>
 {

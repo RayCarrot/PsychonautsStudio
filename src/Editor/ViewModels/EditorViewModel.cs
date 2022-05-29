@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public abstract class EditorViewModel : BaseViewModel, IDisposable
 {

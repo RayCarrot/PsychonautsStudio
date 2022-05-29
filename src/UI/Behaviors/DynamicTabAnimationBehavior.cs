@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using MahApps.Metro.Controls;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class DynamicTabAnimationBehavior : AttachableForStyleBehavior<MetroAnimatedTabControl, DynamicTabAnimationBehavior>
 {

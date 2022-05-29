@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Text;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public abstract class TextFileType : IFileType
 {

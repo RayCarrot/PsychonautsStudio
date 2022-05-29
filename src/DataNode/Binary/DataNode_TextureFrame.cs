@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class DataNode_TextureFrame : BinaryDataNode<TextureFrame>
 {

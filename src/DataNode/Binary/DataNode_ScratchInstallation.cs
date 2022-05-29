@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using PsychoPortal;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class DataNode_ScratchInstallation : BinaryDataNode<ScratchInstallation>
 {

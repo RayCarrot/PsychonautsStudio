@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class DataNode_Text : DataNode
 {

@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using MahApps.Metro.IconPacks;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class DataNodeToIconKindConverter : BaseValueConverter<DataNodeToIconKindConverter, DataNode, PackIconMaterialKind>
 {

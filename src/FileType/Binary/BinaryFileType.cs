@@ -1,6 +1,6 @@
 ﻿using PsychoPortal;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public abstract class BinaryFileType<T> : IFileType
     where T : IBinarySerializable, new()

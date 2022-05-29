@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows.Input;
 using PsychoPortal;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class OpenFileViewModel : BaseViewModel
 {

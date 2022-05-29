@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using PsychoPortal;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class DataNode_AnimPack : BinaryDataNode<AnimPack>
 {

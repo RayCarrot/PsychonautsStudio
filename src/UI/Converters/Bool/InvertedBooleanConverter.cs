@@ -2,7 +2,7 @@
 using System;
 using System.Globalization;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 /// <summary>
 /// Converts a <see cref="Boolean"/> to its inverted value

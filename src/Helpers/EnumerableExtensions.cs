@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public static class EnumerableExtensions
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Media;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public abstract class DataNode : IDisposable
 {

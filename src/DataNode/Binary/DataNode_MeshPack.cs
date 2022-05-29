@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class DataNode_MeshPack : BinaryDataNode<MeshPack>
 {

@@ -2,7 +2,7 @@
 using System.IO;
 using PsychoPortal;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class FileType_PPF : BinaryFileType<PackPack>
 {

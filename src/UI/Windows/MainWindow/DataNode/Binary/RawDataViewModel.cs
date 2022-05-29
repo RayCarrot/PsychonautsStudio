@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using PsychoPortal;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class RawDataViewModel : BaseViewModel
 {

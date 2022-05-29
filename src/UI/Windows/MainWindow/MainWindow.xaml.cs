@@ -5,7 +5,7 @@ using MahApps.Metro.Controls;
 using System.Windows;
 using System.Windows.Input;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml

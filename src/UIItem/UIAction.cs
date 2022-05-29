@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using MahApps.Metro.IconPacks;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class UIAction : UIItem
 {

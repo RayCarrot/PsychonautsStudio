@@ -1,7 +1,7 @@
 ﻿#nullable disable
 using PsychoPortal;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class ByteArray : IBinarySerializable
 {

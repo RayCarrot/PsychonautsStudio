@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using PsychoPortal;
 
-namespace PsychonautsTools;
+namespace PsychonautsStudio;
 
 public class DataNode_SharedSkelAnim : BinaryDataNode<SharedSkelAnim>
 {
