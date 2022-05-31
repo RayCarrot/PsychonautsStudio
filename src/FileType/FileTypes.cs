@@ -24,6 +24,7 @@ public static class FileTypes
         new FileType_INI(), // Initialization
         new FileType_VSH(), // Vertex Shader
         new FileType_ATX(), // Texture Animation
+        new FileType_TXT(), // Text
         new FileType_ASD(), // Animation Actions
         new FileType_LUA(), // Script
 
