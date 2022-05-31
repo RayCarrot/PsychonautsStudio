@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using PsychoPortal;
@@ -15,6 +16,42 @@ public class DataNode_PS2_FileTable : BinaryDataNode<PS2_FileTable>
     public override string TypeDisplayName => "PS2 Pack";
     public override string DisplayName { get; }
     public override bool HasChildren => SerializableObject.Files.AnyAndNotNull();
+
+    private string GetFileExtension(byte[] buffer)
+    {
+        uint magic = BitConverter.ToUInt32(buffer, 0);
+
+        if (magic == 0x4150414B) // APAK
+            return ".apf";
+        else if (magic == 0x45504241) // EPBA
+            return ".pba";
+        else if (magic == 0x50455645) // PEVE
+            return ".eve";
+        else if (magic is 0x504A4158 or 0x504A414E) // PJAX or PJAN
+            return ".ja2";
+        else if (magic == 0x50535943) // PSYC
+            return ".pl2";
+        else if (magic == 0x4B415050) // PPAK
+            return ".ppf";
+        else if (magic == 0x61754C1B) // .LUA
+            return ".lub";
+        else if (magic == 0x69746341) // Acti(onFile)
+            return ".asd";
+        else if (magic == 0x4543414D) // MACE
+            return ".cam";
+        else if (magic == 0xBA010000)
+            return ".pss";
+        else if ((magic & 0xFFFF) == 0x4257) // WB
+            return ".pwb";
+        else if ((magic & 0xFFFF) == 0x4253) // SB
+            return ".psb";
+        else if ((magic & 0xFFFFFF) == 0x325350) // PS2
+            return ".ps2";
+        else if (magic == 0x73504C43) // CLPs(ychoMunger)
+            return ".txt";
+        else
+            return String.Empty;
+    }
 
     public override IEnumerable<InfoItem> GetInfoItems()
     {
@@ -51,7 +88,20 @@ public class DataNode_PS2_FileTable : BinaryDataNode<PS2_FileTable>
         yield return DataNode_Folder.FromUntypedFiles(
             files: SerializableObject.Files.Where(x => x.FileSize >= 0),
             fileContext: fileContext,
-            getFilePathFunc: x => fileTable.TryGetValue(x.FilePathHash, out string? v) ? v : $"{x.FilePathHash:X8}",
+            getFilePathFunc: x =>
+            {
+                if (fileTable.TryGetValue(x.FilePathHash, out string? v))
+                    return v;
+
+                string ext = String.Empty;
+
+                byte[] buffer = x.ReadFile(pakStreams, 4);
+
+                if (buffer != null)
+                    ext = GetFileExtension(buffer);
+
+                return $"{x.FilePathHash:X8}{ext}";
+            },
             getFileStreamFunc: (file, _) => new MemoryStream(file.ReadFile(pakStreams)));
     }
 }

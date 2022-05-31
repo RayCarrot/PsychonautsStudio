@@ -75,7 +75,11 @@ public class DataNode_Folder : DataNode
 
             // Use a normal file node if none was found
             if (type == null)
-                return new Lazy<DataNode>(() => DataNode_File.FromStream(fileName, getFileStreamFunc(file, fileName)));
+                return new Lazy<DataNode>(() =>
+                {
+                    using Stream stream = getFileStreamFunc(file, fileName);
+                    return DataNode_File.FromStream(fileName, stream);
+                });
 
             return new Lazy<DataNode>(() =>
             {
