@@ -21,6 +21,8 @@ public class DataNode_SharedBlendAnim : BinaryDataNode<SharedBlendAnim>
             yield return item;
 
         yield return new InfoItem("Version", $"{SerializableObject.Version}");
-        yield return new InfoItem("Channels", $"{String.Join(", ", SerializableObject.Channels.Select(x => x.Name))}");
+
+        if (SerializableObject.Channels != null)
+            yield return new InfoItem("Channels", $"{String.Join(", ", SerializableObject.Channels.Select(x => x.Name))}");
     }
 }
