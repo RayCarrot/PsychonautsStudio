@@ -60,5 +60,5 @@ public partial class App : Application
 
     public new static App Current => (App)Application.Current;
 
-    public static Version Version => new(0, 1, 1, 0);
+    public static Version Version => new(0, 1, 2, 0);
 }
