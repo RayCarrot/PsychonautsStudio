@@ -81,6 +81,9 @@ public class MainWindowViewModel : BaseViewModel, IDisposable
         {
             foreach (AppUserData.LoadedFile loadedFile in AppUserData.LoadedFiles)
             {
+                if (!File.Exists(loadedFile.FilePath))
+                    continue;
+
                 IFileType? type = FileTypes.GetFromID(loadedFile.FileTypeID);
 
                 // Can't load the file if the type wasn't found
