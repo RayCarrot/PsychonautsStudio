@@ -84,7 +84,7 @@ public static class TextureHelpers
         {
             if (frame.PS2_Faces == null)
             {
-                MipSurfaces face = frame.Faces[0];
+                TextureFace face = frame.Faces[0];
                 imgSource = CreateBitmapImage(face.Surfaces[0], frame.Format, (int)frame.Width, (int)frame.Height);
             }
             else
